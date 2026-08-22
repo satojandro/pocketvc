@@ -1,40 +1,66 @@
-# PocketVC 🦈
+## Foundry
 
-**An AI shark-tank investor that funds kids' coding milestones in USDT.**
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-A kid builds something (a Roblox game, a script, an app). They pitch it to the Shark — an AI investor-mentor. The Shark reviews the actual repo, asks hard questions, renders a verdict, and pays out USDT from the parent's treasury to the kid's own self-custodial wallet — with every payout bounded by a deterministic policy engine the LLM cannot override.
+Foundry consists of:
 
-> The AI decides *who deserves* the money. Code decides *how much can move*.
+- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-Built for the [Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track 1.
+## Documentation
 
-## Architecture
+https://book.getfoundry.sh/
 
-```
-┌─────────────────────────────────────────────┐
-│ Shark Agent (LLM via Vercel AI SDK)         │
-│  - reviews repo, grills, mentors            │
-│  - tools: read-only + propose_payout()      │
-└──────────────┬──────────────────────────────┘
-               │ proposal (never direct sends)
-┌──────────────▼──────────────────────────────┐
-│ Policy Engine (deterministic TS, no AI)     │
-│  - milestone contract state                 │
-│  - caps, balance checks, audit log          │
-└──────────────┬──────────────────────────────┘
-               │ approved payout
-┌──────────────▼──────────────────────────────┐
-│ WDK wallet layer (@tetherto/wdk-cli)        │
-│  - treasury wallet (parent)                 │
-│  - kid wallet (self-custodial)              │
-│  - wdk mcp server / --json receipts         │
-└─────────────────────────────────────────────┘
+## Usage
+
+### Build
+
+```shell
+$ forge build
 ```
 
-## Status
+### Test
 
-Hackathon build in progress (Aug 22–23, 2026). See `docs/BUILD_LOG.md` for the running log.
+```shell
+$ forge test
+```
 
-## WDK packages used
+### Format
 
-- `@tetherto/wdk-cli` (beta) — wallet CLI + bundled MCP server
+```shell
+$ forge fmt
+```
+
+### Gas Snapshots
+
+```shell
+$ forge snapshot
+```
+
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Deploy
+
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```

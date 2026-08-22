@@ -3,3 +3,8 @@ node_modules/
 *.seed*
 .DS_Store
 dist/
+broadcast/
+cache/
+out/
+lib/
+.env
