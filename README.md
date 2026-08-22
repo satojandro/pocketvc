@@ -1,4 +1,4 @@
-# PocketVC 💼🧒
+# BabyShark VC 🦈👶
 
 **An AI mentor-investor that reviews kids' coding work and pays out USDT when milestones are hit.**
 

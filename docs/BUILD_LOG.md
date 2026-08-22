@@ -43,3 +43,14 @@ Gotchas:
 ### Next
 - Phase 1: policy engine (pure TS + tests).
 - Phase 2: Vercel AI SDK agent loop w/ Shark persona system prompt.
+
+### ~21:30 — Phase 1: Policy engine ✅
+- `src/policy/engine.ts` — pure deterministic evaluation: budget caps, recipient binding (case-insensitive), milestone status, treasury-self-pay refusal, parent-confirm threshold → APPROVE / REJECT / HOLD_FOR_PARENT.
+- `src/policy/store.ts` — JSON file persistence for milestones + append-only audit log under data/.
+- `src/policy/engine.test.ts` — 10 vitest cases covering all failure modes. **All green.**
+- Gotcha: vitest initially swept OpenZeppelin's vendored JS tests in lib/ — fixed with include/exclude globs in vitest.config.ts.
+
+Design notes:
+- Amounts are bigint base units (6 decimals) — no float money ever.
+- evaluateProposal is pure (no I/O) so it's trivially testable; store is the only touchpoint with disk.
+- The audit log doubles as the agent's "milestone journal" memory tier.
