@@ -1,66 +1,48 @@
-## Foundry
+# PocketVC 💼🧒
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**An AI mentor-investor that reviews kids' coding work and pays out USDT when milestones are hit.**
 
-Foundry consists of:
+## Why
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Parents want their kids to build things with AI and code — but most parents can't evaluate the work. The kid has nobody who *understands* what they built, so daily show-and-tell dies, and slacking ("yeah dad, I worked on it") goes undetected.
 
-## Documentation
+PocketVC fills that gap: an AI mentor that actually reads the repo, gets genuinely curious about what the kid built, coaches them between milestones — and when a milestone is done, releases real money from the parent's treasury to the kid's own self-custodial wallet.
 
-https://book.getfoundry.sh/
+> The parent sets the budget. The AI judges the work. Code bounds the payout.
+> **The AI decides *who deserves* the reward; deterministic code decides *how much can move*.**
 
-## Usage
+Not hostile like Shark Tank — a supportive coach who happens to hold the checkbook. The goal: the kid *wants* to show their work, because finally someone gets it.
 
-### Build
+## How it works
 
-```shell
-$ forge build
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system map.
+
+```
+Kid ──pitch──▶ Shark Agent (LLM reasoning)
+                    │ propose_payout()
+                    ▼
+              Policy Engine (deterministic caps & checks)
+                    │ approved
+                    ▼
+              WDK wallet layer (@tetherto/wdk-cli)
+              treasury (parent) ──USDT──▶ kid wallet (self-custodial)
 ```
 
-### Test
+- **Shark Agent** — LLM (Vercel AI SDK): reviews commits/diffs via GitHub API, asks curiosity-driven questions, mentors between milestones, renders verdicts. Has NO send-money tool — only `propose_payout()`.
+- **Policy Engine** — plain TypeScript, zero AI: enforces milestone budgets, duplicate-payout protection, recipient binding, parent-confirm thresholds. Logs every decision.
+- **Wallet layer** — `@tetherto/wdk-cli`: two self-custodial wallets (treasury + kid), `--json` receipt trail.
 
-```shell
-$ forge test
-```
+## Status
 
-### Format
+Hackathon build for [Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026), Tether WDK Track. Running log: [`docs/BUILD_LOG.md`](docs/BUILD_LOG.md).
 
-```shell
-$ forge fmt
-```
+| Layer | Status |
+|---|---|
+| Wallet spine (Phase 0) | ✅ working end-to-end on Sepolia |
+| Policy engine (Phase 1) | 🚧 in progress |
+| Agent loop (Phase 2) | ⏳ |
+| Repo review (Phase 3) | ⏳ |
 
-### Gas Snapshots
+## WDK packages used
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- `@tetherto/wdk-cli@1.0.0-beta.3` — local self-custodial wallets, transfers, JSON receipts

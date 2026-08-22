@@ -33,3 +33,13 @@ Gotchas:
 ### Next
 - First transfer: treasury → kid via wdk send.
 - Phase 1: policy engine.
+
+### ~19:30 — First transfer ✅ (Phase 0 complete)
+- Dry-run first (`--dry-run`): 50 USDT, est. fee 0.000114 ETH.
+- Sent: treasury → kid, tx `0xbef958c2d0020d057ae1d18fbc12031d5b11cd4358e7689f2ad84ae44b71d665`.
+- Kid balance verified post-confirmation: **50 USDT** (~20s wait = Sepolia block time).
+- Product reframe from Alejandro: the agent is a supportive MENTOR first (daily show-and-tell with someone who understands), investor second. The cousin story: dad can't read code → kid stops showing work → slacking invisible. PocketVC fixes both: real comprehension + real verification. Persona spec folded into ARCHITECTURE.md design principles.
+
+### Next
+- Phase 1: policy engine (pure TS + tests).
+- Phase 2: Vercel AI SDK agent loop w/ Shark persona system prompt.
