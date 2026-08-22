@@ -66,3 +66,82 @@ Every proposal → decision → transfer is logged as an auditable triple.
 3. **Execution is WDK's job** — self-custodial wallets, signed locally, JSON receipts.
 4. **The kid feels coached, not judged** — hostile grilling kills motivation; curiosity feeds it.
 5. **Partial payouts are normal** — milestones unlock in slices; feedback names what was great first.
+
+---
+
+# BabyShark Agent — Anatomy
+
+The agent itself: what the LLM sees, what tools it has, and the one narrow gate to money.
+
+```
+                              ┌──────────────┐
+   kid message ──────────────▶│  CHAT LOOP    │◀────── streaming UI
+                              │ (AI SDK:      │       (ai-chatbot /
+                              │  streamText + │        useChat)
+                              │  maxSteps)    │
+                              └──────┬────────┘
+                                     │ assembles each LLM call from:
+                                     ▼
+        ┌────────────────────────────────────────────────────┐
+        │                    PROMPT STACK                     │
+        │                                                    │
+        │  1. SYSTEM PROMPT — the persona:                   │
+        │     supportive coach · curiosity-driven questions  │
+        │     verdict framing · never adversarial            │
+        │  2. KID PROFILE (memory) — skill level, interests, │
+        │     past struggles, what motivates them            │
+        │  3. MILESTONE JOURNAL — contracts, past verdicts,  │
+        │     payouts (from policy engine audit log)         │
+        │  4. THIS SESSION'S MESSAGE HISTORY                 │
+        └────────────────────────────┬───────────────────────┘
+                                     │
+                                     │ LLM decides which tools to call
+                                     ▼
+        ┌────────────────────────────────────────────────────┐
+        │                       TOOLS                         │
+        │                                                    │
+        │  READ (safe):                                      │
+        │   🔍 review_repo()      → GitHub API: commits,     │
+        │                            diffs, file tree        │
+        │   📋 read_milestone()   → contract state           │
+        │   📔 read_journal()     → past sessions/verdicts   │
+        │                                                    │
+        │  WRITE (memory only):                              │
+        │   🧠 update_kid_profile() → insights file          │
+        │                                                    │
+        │  MONEY (the ONLY gateway):                         │
+        │   💰 propose_payout(amount, milestoneId, reason)   │
+        └────────────────────────────┬───────────────────────┘
+                                     │
+                                     ▼
+                     ╔═══════════════════════════════╗
+                     ║      POLICY ENGINE (no AI)     ║
+                     ║  caps · budgets · recipients   ║
+                     ║  APPROVE / REJECT / HOLD       ║
+                     ╚════════════╦══════════════════╝
+                                  │ APPROVE only
+                                  ▼
+                        💳 wdk send (USDT)
+                        treasury ──▶ kid wallet
+
+   MEMORY TIERS:
+     session history  → chat storage (template provides)
+     kid profile      → data/kid.json (agent-updated via tool)
+     journal          → policy audit log (reused, not duplicated)
+
+   THE ONE RULE:
+     The LLM's entire money power = a function that ASKS.
+     Code answers. Keys live outside the conversation entirely.
+```
+
+## Implementation status of agent components
+
+| Component | Status | Lives in |
+|---|---|---|
+| Chat loop | Phase 2 | `src/agent/` |
+| Prompt stack (persona) | Phase 2 | `src/agent/prompt.ts` |
+| Kid profile memory | Phase 2 (minimal) | `data/kid.json` |
+| review_repo tool | Phase 3 | `src/agent/tools/` |
+| propose_payout → engine | Phase 2 | wired to `src/policy/engine.ts` ✅ |
+| Policy engine | ✅ done | `src/policy/` |
+| Wallet layer | ✅ done | wdk-cli + Sepolia contracts |
