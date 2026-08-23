@@ -149,9 +149,10 @@ export function createBabySharkTools(config: PolicyConfig) {
           const updated = applyApproval(open, amount);
           ms.set(open.id, updated);
           saveMilestones(ms);
-          // NOTE: actual wdk send is invoked by the caller layer (wallet.ts),
-          // not by the LLM. Here we only record authorization.
-          executed = `authorized ${formatUsdt(amount)} USDT`;
+          // Policy approved — NOW the wallet layer executes the real transfer.
+          // This is the only path to money movement, and it is unreachable by the LLM.
+          const receipt = await executePayout(Number(amount) / 1_000_000, open.kidAddress);
+          executed = `sent ${formatUsdt(amount)} USDT — tx ${receipt.txHash}`;
         }
 
         const entry: AuditEntry = {

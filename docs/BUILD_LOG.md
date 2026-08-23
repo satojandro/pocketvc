@@ -86,3 +86,10 @@ Full audit trail in data/audit.log shows every proposal + decision. The safety c
 ### ~01:30 — Housekeeping
 - Removed Foundry scaffold leftovers (Counter.sol, Counter.s.sol).
 - Demo plan: showcase review_repo against an active public game repo (presented as the kid's repo) — agent analyzes real recent commits and comments on actual code.
+
+### ~01:00-03:30 (Sun) — Night session
+- Wallet wizard made FUNCTIONAL: /setup page generates keys client-side via BIP-39/44 libs (@scure/*), derivation verified byte-for-byte vs WDK SDK; server receives public addresses only (/api/wallet/register rejects non-addresses).
+- SECURITY_NOTES.md rewritten: client-side generation is the shipped implementation.
+- executePayout() wired into propose_payout: approved payouts now REALLY send USDT treasury→kid and return the tx hash. Tested live: 5 USDT sent, tx 0x6ef1aec3…
+- Gotchas: wdk CLI prompts need delayed stdin writes (pipe closes too early); dotenv path must be explicit for web/ subdirs.
+- Gas dead-end documented: ROADMAP layers + how-it-works FAQ + README note (EOA+gas now → ERC-4337 gasless next).

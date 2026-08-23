@@ -3,8 +3,8 @@
     "id": "ms-1",
     "kidAddress": "0xC413707F12C1a08bFc8Dc6cD091bF69762B2b255",
     "budget": "100000000n",
-    "paidOut": "50000000n",
+    "paidOut": "100000000n",
     "description": "Roblox obby with 3 working checkpoints",
-    "status": "open"
+    "status": "paid"
   }
 ]
