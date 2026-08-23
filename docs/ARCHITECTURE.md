@@ -42,10 +42,10 @@ Where the reasoning lives, where the money rules live, where transfers happen.
                 │ approved payout
                 ▼
 ┌─────────────────────────────────────────────────┐
-│  WALLET LAYER (@tetherto/wdk-cli) ── Phase 0 ✅ │
+│  WALLET LAYER (WDK CLI + SDK) ──── Phase 0 ✅   │
 │                                                 │
-│  TREASURY wallet ──send USDT──▶ KID wallet     │
-│  (parent custody)        (kid self-custody)     │
+│  PROJECT POOL ──send USDT──▶ KID wallet         │
+│  (escrow: parent+backers) (kid self-custody)   │
 │  --json receipts → audit trail                  │
 │                                                 │
 │  Sepolia · MockUSDT 0x4804e2da…ed4b4            │
@@ -138,10 +138,12 @@ The agent itself: what the LLM sees, what tools it has, and the one narrow gate 
 
 | Component | Status | Lives in |
 |---|---|---|
-| Chat loop | Phase 2 | `src/agent/` |
-| Prompt stack (persona) | Phase 2 | `src/agent/prompt.ts` |
-| Kid profile memory | Phase 2 (minimal) | `data/kid.json` |
-| review_repo tool | Phase 3 | `src/agent/tools/` |
-| propose_payout → engine | Phase 2 | wired to `src/policy/engine.ts` ✅ |
-| Policy engine | ✅ done | `src/policy/` |
-| Wallet layer | ✅ done | wdk-cli + Sepolia contracts |
+| Chat loop | ✅ done | `web/src/app/chat` + `/api/chat` |
+| Prompt stack (persona) | ✅ done | `src/agent/prompt.ts` |
+| Kid profile memory | ✅ done | `data/kid.json` |
+| Milestone proposals (agent drafts → parent approves) | ✅ done | `/api/milestone-proposals` + dashboard |
+| review_repo tool | ✅ done | `src/agent/github.ts` |
+| propose_payout → engine → executePayout | ✅ done | wired to policy engine + wallet-exec |
+| Policy engine (unit-tested ×10) | ✅ done | `src/policy/` |
+| Wallet layer (CLI + SDK, 3-wallet custody w/ pool escrow) | ✅ done | wdk-cli + wdk-wallet-evm + Sepolia contracts |
+| Web UI (landing/chat/parent/fund/eli5/how-it-works/setup) | ✅ done | `web/src/app/` |
