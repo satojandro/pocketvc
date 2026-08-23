@@ -20,6 +20,7 @@ import {
   saveMilestones,
   appendAudit,
 } from "../policy/store.js";
+import { reviewRepo, fetchFile } from "./github.js";
 
 const DATA = join(process.cwd(), "data");
 const KID_PROFILE = join(DATA, "kid.json");
@@ -98,6 +99,23 @@ export function createBabySharkTools(config: PolicyConfig) {
         push("motivations", args.addMotivation);
         saveKidProfile(profile);
         return { saved: true };
+      },
+    }),
+
+    review_repo: tool({
+      description:
+        "Review the kid's GitHub repository: recent commits with stats, file tree, languages. Use this to verify claimed work before proposing payouts. Optionally fetch a specific file's content.",
+      inputSchema: z.object({
+        repo: z.string().describe("GitHub repo, e.g. 'owner/repo' or full URL"),
+        filePath: z
+          .string()
+          .optional()
+          .describe("Optional: fetch this one file's content for closer review"),
+      }),
+      execute: async ({ repo, filePath }: { repo: string; filePath?: string }) => {
+        const summary = await reviewRepo(repo);
+        const fileContent = filePath ? await fetchFile(repo, filePath).catch((e) => `error: ${e}`) : undefined;
+        return { ...summary, fileContent };
       },
     }),
 

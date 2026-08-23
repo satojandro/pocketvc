@@ -76,3 +76,9 @@ Full audit trail in data/audit.log shows every proposal + decision. The safety c
 ### Next
 - Phase 3: repo review tool (GitHub API) — real commit evidence instead of pasted code.
 - Phase 4: web UI on ai-chatbot template + parent dashboard.
+
+### ~01:00 — Phase 3: Repo review tool ✅
+- `src/agent/github.ts` — GitHub REST: repo meta, recent commits w/ per-commit stats (capped 8), file tree, languages, single-file fetch. Public-API read-only; GITHUB_TOKEN optional for rate limits.
+- Wired as `review_repo` tool in the agent.
+- Integration test: told BabyShark "my obby repo is venekovox" → agent called review_repo, noticed NO checkpoint commits ("the last changes were more focused on presentation"), and asked Mateo to explain instead of paying. **The bluff-detection loop works against real GitHub data.**
+- Note for demo: use a repo with real recent commits; kid repos will be small but genuine.
