@@ -25,20 +25,24 @@ The CLI's prompts expect a terminal (TTY). The server route spawns the CLI
 with piped stdio and retries passphrase submission on a timer. This is a
 workaround for demo ergonomics, documented in the code.
 
-## Production architecture (the fix, already planned)
+## Status: RESOLVED — client-side generation shipped
 
-In production, wallet generation moves **client-side**:
+As of commit `1fea531`, wallet generation in the setup wizard is fully
+client-side:
 
-1. The browser (or device) generates keys via the WDK SDK running locally —
-   the server never sees seed phrases or passphrases.
-2. The server only ever receives **public addresses** to register on the
-   milestone contract.
-3. Signing happens on the user's device; the server relays signed
-   transactions it cannot forge.
+1. The mnemonic is generated **in the browser** using audited BIP-39 libs
+   (`@scure/bip39`).
+2. The address is derived **locally** via BIP-44 (`m/44'/60'/0'/0/0`) —
+   verified byte-for-byte against `@tetherto/wdk-wallet-evm` itself
+   (see `web/scripts/verify-derivation.mjs`).
+3. The server receives **only the public address**, which it registers.
+   No seed phrase or passphrase ever transits the network.
 
-This preserves the core promise — keys generated on the family's device,
-never on a server — which the demo honors in spirit (keys are generated
-locally on the runner machine) and production will honor in letter.
+Signing for demo payouts still runs through the WDK CLI daemon server-side
+(the parent's treasury is a demo wallet). In production, signing moves
+client-side too: WDK's `WalletAccountEvm` signs locally and the app
+broadcasts the raw transaction — the interface is identical, as proven by
+the derivation test.
 
 ## Disclosure
 
