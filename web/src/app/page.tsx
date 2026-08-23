@@ -3,6 +3,22 @@ import Link from "next/link";
 
 const CHECKER = "repeating-conic-gradient(#FFD23F 0% 25%, #3EC1D3 0% 50%) 50% / 48px 48px";
 
+function Faq({ q, children }: { q: string; children: React.ReactNode }) {
+  return (
+    <details className="group rounded-2xl border-2 border-black bg-white shadow-[5px_5px_0_0_rgba(0,0,0,1)] open:bg-[#FFFBEF]">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-black marker:hidden">
+        {q}
+        <span className="shrink-0 rounded-full border-2 border-black bg-[#FFD23F] px-2 py-0.5 text-sm font-black transition group-open:rotate-45">
+          +
+        </span>
+      </summary>
+      <div className="border-t-2 border-dashed border-gray-300 p-5 font-medium leading-relaxed text-gray-800">
+        {children}
+      </div>
+    </details>
+  );
+}
+
 export default function Landing() {
   return (
     <main className="min-h-screen" style={{ background: CHECKER }}>
@@ -14,20 +30,14 @@ export default function Landing() {
             <Link href="/eli5" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-pink-100">
               ELI5 🖼️
             </Link>
-            <Link href="/how-it-works" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-cyan-100">
-              Under the hood 🔧
-            </Link>
-            <Link href="/chat" className="rounded-xl border-2 border-black px-4 py-2 font-bold hover:bg-yellow-100">
-              Kid login
-            </Link>
-            <Link href="/setup" className="rounded-xl border-2 border-black bg-white px-4 py-2 font-bold hover:bg-pink-100">
-              Family setup
-            </Link>
             <Link href="/fund" className="rounded-xl border-2 border-black bg-[#7AE582] px-4 py-2 font-bold hover:bg-green-200">
               Back a kid 🌱
             </Link>
             <Link href="/parent" className="rounded-xl border-2 border-black bg-black px-4 py-2 font-bold text-white hover:bg-gray-800">
               Parent dashboard
+            </Link>
+            <Link href="/chat" className="rounded-xl border-2 border-black px-4 py-2 font-bold hover:bg-yellow-100">
+              Kid login
             </Link>
           </div>
         </nav>
@@ -74,12 +84,12 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Pain / solution */}
-        <section id="how" className="mt-6 grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)] md:col-span-2">
+        {/* Pain / solution — 2x2 grid */}
+        <section id="how" className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
             <div className="text-4xl">😕</div>
             <h2 className="mt-4 text-2xl font-black">Two gaps nobody bridges</h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div className="mt-4 space-y-3">
               <div className="rounded-2xl border-2 border-black bg-[#FFE5EE] p-4">
                 <p className="font-black">😶 The visibility gap</p>
                 <p className="mt-2 font-medium text-gray-700">
@@ -114,24 +124,36 @@ export default function Landing() {
               code controls how much can move.
             </p>
           </div>
+          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(122,229,130,1)]">
+            <div className="text-4xl">🌱</div>
+            <h2 className="mt-4 text-2xl font-black">Back a builder</h2>
+            <p className="mt-3 font-medium text-gray-700">
+              Not just parents — <em>anyone</em> can deposit USDT into a kid&apos;s
+              project via QR code. Grandparents, neighbors, family friends:
+              visible stake in a kid shipping. Like GoFundMe, but the AI verifies
+              the work before money moves.
+            </p>
+            <Link href="/fund" className="mt-3 inline-block font-bold underline decoration-4 decoration-[#7AE582] underline-offset-4">
+              See Mateo&apos;s project page →
+            </Link>
+          </div>
         </section>
 
         {/* How it works */}
         <section className="mt-6 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
           <h2 className="text-center text-3xl font-black">How it works</h2>
-          <div className="mt-8 flex flex-col items-stretch gap-4 md:flex-row md:items-center">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["1", "👨‍👩‍👦", "Parent funds a milestone", "100 USDT if you ship 3 checkpoints."],
               ["2", "💻", "Kid builds & checks in daily", "BabyShark reads every commit and coaches."],
               ["3", "🦈", "Pitch time", "BabyShark reviews the repo and asks the hard (curious) questions."],
               ["4", "💸", "Policy-gated payout", "Verified work → USDT lands in the kid's own wallet."],
-            ].map(([n, emoji, title, sub], i, arr) => (
-              <div key={n} className="flex flex-1 flex-col items-center text-center">
+            ].map(([n, emoji, title, sub]) => (
+              <div key={n} className="flex flex-col items-center rounded-2xl border-2 border-black bg-[#FFFDF5] p-5 text-center">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#FFD23F] text-xl font-black shadow-[3px_3px_0_0_rgba(0,0,0,1)]">{n}</div>
                 <div className="mt-2 text-3xl">{emoji}</div>
                 <p className="mt-2 font-black leading-tight">{title}</p>
                 <p className="mt-1 text-sm font-medium text-gray-600">{sub}</p>
-                {i < arr.length - 1 && <div className="hidden text-2xl font-black md:absolute md:right-0 md:top-1/2 md:block" aria-hidden>→</div>}
               </div>
             ))}
           </div>
@@ -163,9 +185,72 @@ export default function Landing() {
             <div>
               <p className="font-black text-[#FFD23F]">Your kid owns their wallet</p>
               <p className="mt-2 text-gray-300">
-                Self-custodial via Tether&apos;s WDK. Rewards go straight to them — no middleman.
+                Keys generated in your browser via Tether&apos;s WDK. Rewards go straight to them — no middleman.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="mt-6 mb-4">
+          <h2 className="mb-4 text-center text-3xl font-black">Questions we get 🤔</h2>
+          <div className="mx-auto max-w-4xl space-y-3">
+            <Faq q="Can someone prompt-inject the agent into draining the treasury?">
+              They can convince it to say anything — but there is nothing for it to do. The LLM
+              has no send tool and no keys. Its only money surface is a propose_payout() request
+              that deterministic code checks against five hard rules (budget, recipient pinning,
+              milestone state). Worst case: a rejected proposal in the audit log.
+            </Faq>
+            <Faq q="Who custodies the funds? Is a company holding them?">
+              No. Both wallets are generated on the family&apos;s own device — keys created
+              in-browser during setup and encrypted locally. There is no hosted balance to freeze
+              or lose. Transfers are ordinary on-chain USDT transactions verifiable by anyone.
+            </Faq>
+            <Faq q="How does the AI actually verify the coding work?">
+              GitHub is the evidence locker: every commit carries a timestamp, author, and diff.
+              The agent reads commit history, per-file stats, and file contents via API. Stale
+              repos expose &quot;I worked all week,&quot; and explanations are probed for real understanding.
+            </Faq>
+            <Faq q="What if something goes wrong? Can payouts be audited?">
+              Every proposal → decision → transfer triple lands in an append-only audit file plus
+              an on-chain receipt. Parents replay exactly why each payment happened; the dashboard
+              renders this trail directly.
+            </Faq>
+            <Faq q="New wallets have no gas — doesn't that break payouts?">
+              Great catch: receiving USDT is free, but sending normally requires the chain&apos;s
+              native token. Designed for, in layers: card top-ups bundle a little native gas
+              automatically (parents never see it); next, payouts switch to WDK&apos;s gasless
+              ERC-4337 modules where fees are paid in USDT itself — wallets hold zero native gas,
+              ever; and chain choice (Plasma/Stable) makes it structurally disappear. The upgrade
+              touches one isolated file — not the agent or policy engine.
+            </Faq>
+            <Faq q="Does my kid need crypto experience?">
+              No. The kid experiences it as: build things → chat with a coach → get paid. The
+              wallet is created in one step during family setup; seed phrases are shown once and
+              stored offline. Learning what&apos;s under the hood is optional — and a great lesson.
+            </Faq>
+            <Faq q="What about partial work?">
+              Partial payouts are first-class. BabyShark proposes what the evidence supports —
+              &quot;the jumping works great, that&apos;s 60% of the milestone&quot; — and the rest stays
+              locked until it ships.
+            </Faq>
+            <Faq q="Is this real money or testnet?">
+              The demo runs on Sepolia testnet with a MockUSDT token (identical ERC-20 behavior to
+              real USDT). The code path to mainnet USDT is identical — flip the network config.
+              We deliberately kept real money out of a weekend prototype.
+            </Faq>
+            <Faq q="Why USDT instead of dollars in a normal app?">
+              Because the point is the kid owning value nobody can claw back — programmatically,
+              across borders, without a bank account. That matters most exactly where this will be
+              used most: LATAM families already live on USDT. Also: instant settlement means the
+              reward lands while the win still feels good.
+            </Faq>
+            <Faq q="What's the tech stack?">
+              Next.js + Vercel AI SDK (agent loop), TypeScript policy engine with vitest coverage,
+              Tether WDK (CLI + SDK) for self-custodial wallets and transfers, OpenZeppelin for the
+              demo token, Foundry for deployment, GitHub REST API for verification. Full diagrams
+              in the repo&apos;s docs/ folder.
+            </Faq>
           </div>
         </section>
 
@@ -181,7 +266,9 @@ export default function Landing() {
         </section>
 
         <footer className="pb-6 pt-2 text-center text-sm font-semibold text-black/70">
-          Built at Aleph Hackathon 2026 · Tether WDK Track · Self-custodial by design
+          Built at Aleph Hackathon 2026 · Tether WDK Track ·{" "}
+          <Link href="/how-it-works" className="underline hover:text-black">Technical deep-dive</Link>
+          {" "}· Self-custodial by design
         </footer>
       </div>
     </main>
