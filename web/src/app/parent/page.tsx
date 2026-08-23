@@ -93,7 +93,7 @@ export default function Parent() {
               />
               <p className="mt-2 text-sm font-semibold text-gray-500">
                 Note: QR points at the kid&apos;s project wallet for demo. Production flow:
-                deposits land in a per-project escrow, released only via policy-approved payouts.
+                deposits land in a per-project escrow, released only via policy-approved payouts. See the public version: /fund
               </p>
             </div>
 

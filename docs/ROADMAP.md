@@ -13,10 +13,11 @@ this is the product it becomes.
 
 ## Next up — deepening the WDK integration
 
-### One-click family wallet setup
-Today wallets are created via CLI. Next: a setup wizard button that drives WDK
-wallet creation from the web app, hands the parent their encrypted keystore +
-passphrase flow, and registers both addresses. Zero CLI for families.
+### Account creation = wallet creation (one-click wizard)
+BabyShark has no passwords — the WDK wallet IS the account. A setup wizard
+button drives WDK wallet creation from the web app: parent passphrase flow,
+encrypted keystore saved locally, treasury + kid addresses registered, done.
+The family's first login is the moment they own their keys.
 
 ### Fiat on-ramp: dollars → USDT with a credit card
 WDK ships a MoonPay fiat module (`wdk buy --fiat-amount 100 --token usdt`).
