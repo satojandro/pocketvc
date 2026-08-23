@@ -142,6 +142,20 @@ export default function Landing() {
               </p>
             </div>
           </div>
+          <div className="mx-auto mt-6 max-w-3xl rounded-2xl border-2 border-white/25 bg-white/5 p-6 text-center">
+            <p className="text-4xl">📵</p>
+            <h3 className="mt-3 text-xl font-black">
+              And because parents don&apos;t understand what kids are doing on the screen,
+              they restrict it.
+            </h3>
+            <p className="mt-3 font-medium text-gray-300">
+              Screen-time limits. No software downloads. No budget for AI tools or
+              courses. It&apos;s not bad parenting — it&apos;s fear of the unknown.
+              BabyShark is the reassurance layer: proof the kid is doing a net
+              positive and making real progress, without the parent having to learn
+              everything alongside them.
+            </p>
+          </div>
         </section>
 
         {/* ── The opportunity ── */}
