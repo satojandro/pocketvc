@@ -98,26 +98,52 @@ export default function Landing() {
 
         {/* ── The problem ── */}
         <h2 className="mt-14 text-center text-3xl font-black">
-          Why &quot;show me what you built&quot; never works
+          Kids want money, to be understood, and to have fun while learning.
+          Parents want skills, independence, and proof it&apos;s real.
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-lg font-medium text-gray-600">
+          The gap: where kids could apply themselves is totally unknown to
+          parents. BabyShark bridges it — with the right guidance, incentives,
+          and structure to drive growth.
+        </p>
         <section className="mx-auto mt-6 grid max-w-4xl gap-6 md:grid-cols-2">
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
-            <p className="text-4xl">😶</p>
-            <h3 className="mt-3 text-2xl font-black">Kids have no one to show</h3>
-            <p className="mt-3 font-medium text-gray-700">
-              They&apos;re excited — but nobody around them understands what they
-              built. Excitement with no audience dies in a week.
-            </p>
+            <p className="text-4xl">🧒</p>
+            <h3 className="mt-3 text-2xl font-black">What kids want</h3>
+            <ul className="mt-3 space-y-1.5 font-medium text-gray-700">
+              <li>💵 Money of their own</li>
+              <li>💬 Someone who understands what they built</li>
+              <li>🎮 Fun while learning</li>
+              <li>👏 Recognition from parents and peers</li>
+            </ul>
           </div>
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(62,193,211,1)]">
-            <p className="text-4xl">🤞</p>
-            <h3 className="mt-3 text-2xl font-black">Parents can&apos;t verify anything</h3>
-            <p className="mt-3 font-medium text-gray-700">
-              Is the work real? Is it age-appropriate? Is my money buying
-              progress or just getting spent? No way to know — so most parents
-              never commit.
-            </p>
+            <p className="text-4xl">👨‍👩‍👦</p>
+            <h3 className="mt-3 text-2xl font-black">What parents want</h3>
+            <ul className="mt-3 space-y-1.5 font-medium text-gray-700">
+              <li>📈 Real skill development</li>
+              <li>🛡️ Confidence their kid is safe &amp; on track</li>
+              <li>🚀 Independence and self-sufficiency</li>
+              <li>✅ Proof that their money buys progress</li>
+            </ul>
           </div>
+        </section>
+
+        </section>
+
+        {/* ── The opportunity ── */}
+        <section className="mt-12 rounded-3xl border-4 border-black bg-[#FFF9DB] p-8 shadow-[10px_10px_0_0_rgba(0,0,0,1)] sm:p-12">
+          <p className="text-center text-xs font-black uppercase tracking-widest text-gray-500">The opportunity</p>
+          <h2 className="mt-2 text-center text-3xl font-black">
+            Chores taught responsibility.<br />Building teaches entrepreneurship.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg font-medium text-gray-700">
+            Kids already earn money for mundane tasks. BabyShark applies the same
+            deal — clear commitment, verified delivery, real payout — to{" "}
+            <b>building real things</b>. The next generation of entrepreneurs,
+            self-funding their projects as they grow, learning sovereignty and
+            cryptography along the way.
+          </p>
         </section>
 
         {/* ── How it works ── */}
