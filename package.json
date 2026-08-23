@@ -4,17 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "chat": "tsx src/agent/chat.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@tetherto/wdk-cli": "^1.0.0-beta.3"
+    "@ai-sdk/openai-compatible": "^3.0.35",
+    "@tetherto/wdk-cli": "^1.0.0-beta.3",
+    "ai": "^7.0.77",
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   }

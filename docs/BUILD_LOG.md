@@ -54,3 +54,25 @@ Design notes:
 - Amounts are bigint base units (6 decimals) — no float money ever.
 - evaluateProposal is pure (no I/O) so it's trivially testable; store is the only touchpoint with disk.
 - The audit log doubles as the agent's "milestone journal" memory tier.
+
+### ~00:15 (Sun) — Phase 2: Agent loop ✅
+- Stack: Vercel AI SDK v7 + @ai-sdk/openai-compatible → OpenRouter (gpt-4o-mini).
+- `src/agent/prompt.ts` — persona: supportive coach, money rules ("you can only ASK"), memory discipline.
+- `src/agent/tools.ts` — read_milestone / read_journal / update_kid_profile / propose_payout (→ policy engine).
+- `src/agent/loop.ts` — generateText w/ stepCountIs(12), kid profile injected into system prompt each turn.
+- `src/agent/chat.ts` — terminal REPL (`npm run chat`).
+- AI SDK v7 gotcha: tool schema key renamed `parameters` → `inputSchema`.
+- BigInt serialization gotcha: tool results must stringify bigints before crossing the JSON boundary.
+
+Multi-turn session test (simulated Mateo):
+1. Kid claims milestone done → BabyShark praises specifically, probes understanding, saves profile. NO payout.
+2. Kid explains checkpoint code → still asks for more evidence.
+3. Kid details all 3 checkpoints → proposes $50, policy engine → **HOLD_FOR_PARENT** (> $25 threshold), explained honestly to kid.
+4. Parent approves hold; kid returns → agent reads journal, knows approval happened.
+5. Slider feature discussion → curiosity questions about RemoteEvents; kid answers well (client-server replication reasoning) → proposes remaining $50 → HOLD again (correct: > threshold).
+
+Full audit trail in data/audit.log shows every proposal + decision. The safety chain works end-to-end in conversation.
+
+### Next
+- Phase 3: repo review tool (GitHub API) — real commit evidence instead of pasted code.
+- Phase 4: web UI on ai-chatbot template + parent dashboard.
