@@ -2,7 +2,15 @@
 
 **An AI mentor-investor that reviews kids' coding work and pays out USDT when milestones are hit.**
 
-## Why
+## Why — Mateo's summer
+
+The origin story, and the pattern it generalizes: Mateo (12) spent the summer
+wanting to build a Roblox game. His dad wanted to encourage him but can't read
+code — no way to tell progress from play. Meanwhile Mateo earned $5 taking out
+the trash: money for work that teaches nothing. Two gaps: **visibility** (nobody
+who understands the work is watching) and **funding trust** (money given on faith).
+BabyShark closes both: an AI mentor reviews the real code daily, and USDT payouts
+release only when milestones verify. Anyone can back a kid's project via QR.
 
 Parents want their kids to build things with code — but most parents can't evaluate the work. The kid has nobody who *understands* what they built, so daily show-and-tell dies, and slacking ("yeah dad, I worked on it") goes undetected.
 

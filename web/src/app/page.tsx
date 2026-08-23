@@ -84,58 +84,101 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Pain / solution — 2x2 grid */}
-        <section id="how" className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
-            <div className="text-4xl">😕</div>
-            <h2 className="mt-4 text-2xl font-black">Two gaps nobody bridges</h2>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-2xl border-2 border-black bg-[#FFE5EE] p-4">
-                <p className="font-black">😶 The visibility gap</p>
-                <p className="mt-2 font-medium text-gray-700">
-                  You can&apos;t read the code, so &quot;show me what you built&quot;
-                  dies in week one — and &quot;yeah dad, I worked on it&quot; goes undetected.
-                </p>
-              </div>
-              <div className="rounded-2xl border-2 border-black bg-[#E5F6FF] p-4">
-                <p className="font-black">🤞 The funding trust gap</p>
-                <p className="mt-2 font-medium text-gray-700">
-                  Even when family wants to fund a kid&apos;s project, money goes
-                  on faith — with no way to verify what actually got delivered.
-                </p>
+        {/* Mateo's story — the pitch, in one band */}
+        <section className="mt-6 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
+          <p className="text-xs font-black uppercase tracking-widest text-[#FF6B9D]">Why we built this</p>
+          <h2 className="mt-2 text-3xl font-black">Mateo&apos;s summer 🛹🎮</h2>
+          <p className="mt-4 max-w-3xl text-lg font-medium text-gray-800">
+            Mateo is 12. This summer he wanted to build a Roblox game. His dad
+            wanted to encourage him — but Dad can&apos;t read code, so he couldn&apos;t
+            tell if Mateo was making progress or just playing. Meanwhile Mateo was
+            earning $5 taking out the trash: money for work that teaches him nothing,
+            paid whenever Dad remembers.
+          </p>
+          <p className="mt-4 max-w-3xl text-lg font-medium text-gray-800">
+            BabyShark closes the loop: <b>Dad commits USDT to a clear milestone</b>,
+            <b> an AI mentor reviews the real code and coaches Mateo daily</b>, and
+            when the work checks out, <b>the money lands in Mateo&apos;s own wallet</b> —
+            instantly, with receipts. And anyone else who believes in Mateo can back
+            his project too.
+          </p>
+        </section>
+
+        {/* Problem / opportunity / shark / treasure — alternating rows */}
+        <section id="how" className="mt-6 space-y-6">
+          <div className="grid items-center gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
+              <div className="text-4xl">😕</div>
+              <h2 className="mt-4 text-2xl font-black">The problem: two gaps</h2>
+              <div className="mt-4 space-y-3">
+                <div className="rounded-2xl border-2 border-black bg-[#FFE5EE] p-4">
+                  <p className="font-black">😶 The visibility gap</p>
+                  <p className="mt-2 font-medium text-gray-700">
+                    Dad can&apos;t read the code, so &quot;show me what you built&quot;
+                    dies in week one — and &quot;yeah dad, I worked on it&quot; goes undetected.
+                  </p>
+                </div>
+                <div className="rounded-2xl border-2 border-black bg-[#E5F6FF] p-4">
+                  <p className="font-black">🤞 The funding trust gap</p>
+                  <p className="mt-2 font-medium text-gray-700">
+                    Even when family wants to fund a kid&apos;s project, money goes
+                    on faith — no way to verify what actually got delivered.
+                  </p>
+                </div>
               </div>
             </div>
+            <div className="rounded-3xl border-4 border-black bg-[#FFF9DB] p-8 shadow-[10px_10px_0_0_rgba(0,0,0,1)]">
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500">The opportunity</p>
+              <h3 className="mt-2 text-2xl font-black">Chores taught responsibility.<br />Building teaches more.</h3>
+              <p className="mt-3 font-medium text-gray-700">
+                Kids already earn money for mundane tasks. What if the same deal —
+                clear commitment, verified delivery, real payout — applied to
+                <b> learning to code</b>? The skills compound; the allowance doesn&apos;t.
+                LATAM families already run on USDT, so the reward is money that
+                actually means something.
+              </p>
+            </div>
           </div>
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(62,193,211,1)]">
-            <div className="text-4xl">🦈</div>
-            <h2 className="mt-4 text-2xl font-black">The shark</h2>
-            <p className="mt-3 font-medium text-gray-700">
-              An AI mentor who reads every commit, asks curious questions,
-              remembers last session&apos;s struggles — and gets genuinely
-              excited about their work. Someone who finally <em>gets it</em>.
-            </p>
+
+          <div className="grid items-center gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border-4 border-black overflow-hidden shadow-[10px_10px_0_0_rgba(0,0,0,1)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/shark-hero.png" alt="BabyShark mascot" className="h-auto w-full" />
+            </div>
+            <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(62,193,211,1)]">
+              <div className="text-4xl">🦈</div>
+              <h2 className="mt-4 text-2xl font-black">The shark</h2>
+              <p className="mt-3 font-medium text-gray-700">
+                An AI mentor who reads every commit, asks curious questions,
+                remembers last session&apos;s struggles — and gets genuinely
+                excited about their work. Someone who finally <em>gets it</em>.
+              </p>
+            </div>
           </div>
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,210,63,1)]">
-            <div className="text-4xl">💰</div>
-            <h2 className="mt-4 text-2xl font-black">The treasure</h2>
-            <p className="mt-3 font-medium text-gray-700">
-              You fund milestones with USDT. When the Shark verifies the work,
-              real money lands in your kid&apos;s own wallet. The AI judges;
-              code controls how much can move.
-            </p>
-          </div>
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(122,229,130,1)]">
-            <div className="text-4xl">🌱</div>
-            <h2 className="mt-4 text-2xl font-black">Back a builder</h2>
-            <p className="mt-3 font-medium text-gray-700">
-              Not just parents — <em>anyone</em> can deposit USDT into a kid&apos;s
-              project via QR code. Grandparents, neighbors, family friends:
-              visible stake in a kid shipping. Like GoFundMe, but the AI verifies
-              the work before money moves.
-            </p>
-            <Link href="/fund" className="mt-3 inline-block font-bold underline decoration-4 decoration-[#7AE582] underline-offset-4">
-              See Mateo&apos;s project page →
-            </Link>
+
+          <div className="grid items-center gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,210,63,1)] md:order-2">
+              <div className="text-4xl">💰</div>
+              <h2 className="mt-4 text-2xl font-black">The treasure</h2>
+              <p className="mt-3 font-medium text-gray-700">
+                You fund milestones with USDT. When the Shark verifies the work,
+                real money lands in your kid&apos;s own wallet. The AI judges;
+                code controls how much can move.
+              </p>
+            </div>
+            <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(122,229,130,1)] md:order-1">
+              <div className="text-4xl">🌱</div>
+              <h2 className="mt-4 text-2xl font-black">Back a builder</h2>
+              <p className="mt-3 font-medium text-gray-700">
+                Not just parents — <em>anyone</em> can deposit USDT into a kid&apos;s
+                project via QR code. Grandparents, neighbors, family friends:
+                visible stake in a kid shipping. Like GoFundMe, but the AI verifies
+                the work before money moves.
+              </p>
+              <Link href="/fund" className="mt-3 inline-block rounded-xl border-2 border-black bg-[#7AE582] px-4 py-2 font-bold shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                See Mateo&apos;s project page →
+              </Link>
+            </div>
           </div>
         </section>
 
