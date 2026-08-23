@@ -31,6 +31,18 @@ to back a kid's project. Production version adds a per-project escrow contract:
 deposits accrue publicly on-chain, released only via policy-approved payouts,
 so backers can see exactly how "their" kid's funding was spent.
 
+**Two-layer treasury model (production):**
+- **Project pool (escrow contract):** all commitments + crowdfunding deposits
+  land here. This defines what the agent has available to disperse. Money in
+  the pool is cryptographically segregated — it can ONLY move out through
+  policy-approved milestone payouts.
+- **Parent treasury wallet:** the parent's own funds, held self-custodially.
+  Commitments transfer parent-wallet → pool at commitment time.
+
+Demo note: tonight both roles are played by one WDK wallet ("treasury") with
+the milestone budgets acting as accounting-level caps. The escrow contract is
+the production upgrade that makes the segregation cryptographic.
+
 ### Gasless everything — killing the gas dead-end (next up)
 A brand-new wallet holds zero native gas. Receiving USDT is free, but *sending*
 it normally needs the chain's native token — a new family would hit a wall the
