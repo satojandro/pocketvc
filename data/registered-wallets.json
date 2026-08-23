@@ -2,5 +2,17 @@
   "test-reg": {
     "address": "0x5BA6557bF28fdcb6E73765C29E793Cc3150D0709",
     "registeredAt": "2026-08-23T03:16:20.369Z"
+  },
+  "fernandez-treasury": {
+    "address": "0x065f0e3447e3f76518b5a830923b6fb6b39b5a43",
+    "registeredAt": "2026-08-23T13:19:35.809Z"
+  },
+  "fernandez-kid": {
+    "address": "0xbf9dfd0e948011bd29873ea600f96fd2a32cec9e",
+    "registeredAt": "2026-08-23T13:19:36.040Z"
+  },
+  "fernandez-pool": {
+    "address": "0x86f654d6794ab45233cd3637bc1e10dfe923e9d9",
+    "registeredAt": "2026-08-23T13:19:36.242Z"
   }
 }

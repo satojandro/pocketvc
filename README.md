@@ -75,4 +75,4 @@ Full setup guide: [`docs/SETUP.md`](docs/SETUP.md) · For judges: [`docs/JUDGES_
 
 ## Built for
 
-[Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track · Team: Alejandro Avellaneda
+[Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track · Team: Alejandro Vasquez Betancourt
