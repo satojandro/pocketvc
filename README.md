@@ -76,6 +76,12 @@ Permalinks to WDK integration:
 - Payout execution boundary: `src/agent/tools.ts` → `propose_payout` (policy-approved amounts are dispatched to the wallet layer)
 - Wallet operations: see `docs/BUILD_LOG.md` Phase 0 (wallet create/unlock/get/send transcripts)
 
+## Security disclosure
+
+The setup wizard creates wallets server-side for demo ergonomics; production
+moves key generation client-side (WDK SDK in the browser — the server never
+sees seed material). Full note: [docs/SECURITY_NOTES.md](docs/SECURITY_NOTES.md).
+
 ## Roadmap
 
 The weekend proves the loop; [docs/ROADMAP.md](docs/ROADMAP.md) is the product:

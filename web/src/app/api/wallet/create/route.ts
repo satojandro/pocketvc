@@ -7,6 +7,7 @@
  * generated in the user's browser/device via WDK SDK) — a server should
  * never see seed material. The passphrase comes from server env here
  * because the CLI requires interactive input otherwise.
+ * Full disclosure: docs/SECURITY_NOTES.md
  */
 import { spawn } from "node:child_process";
 import { join } from "node:path";
