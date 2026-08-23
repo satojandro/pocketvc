@@ -28,6 +28,9 @@ export default function Landing() {
         <nav className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white px-6 py-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
           <span className="text-2xl font-black tracking-tight">BabyShark VC 🦈</span>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <Link href="/setup" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-pink-100">
+              Family setup 🏠
+            </Link>
             <Link href="/eli5" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-pink-100">
               ELI5 🖼️
             </Link>
