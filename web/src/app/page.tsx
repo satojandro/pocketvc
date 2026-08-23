@@ -43,17 +43,27 @@ export default function Landing() {
           </div>
         </nav>
 
-        {/* ── Hero ── */}
+        {/* ── Chores → Commits ── */}
         <section className="mt-6 grid items-center gap-6 md:grid-cols-2">
           <div className="rounded-3xl bg-white p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
-            <h1 className="text-5xl font-black leading-tight tracking-tight">
-              Your kid builds.<br />
-              The Shark reviews.<br />
-              <span className="bg-yellow-300 px-2">Real money moves.</span>
+            <p className="text-xs font-black uppercase tracking-widest text-gray-400">The new allowance</p>
+            <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+              Chores are commits now.
             </h1>
-            <p className="mt-6 text-lg font-medium text-gray-700">
-              An AI mentor who reads your kid&apos;s code, coaches them daily,
-              and pays real USDT when milestones are verified.
+            <div className="mt-6 space-y-3">
+              <div className="flex items-center gap-3 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 p-4">
+                <span className="text-2xl">🗑️</span>
+                <p className="font-bold text-gray-500 line-through decoration-red-400 decoration-2">Take out the trash — $5/week</p>
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl border-2 border-black bg-[#FFF9DB] p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                <span className="text-2xl">💻</span>
+                <p className="font-black">Ship 3 commits/week building games &amp; AI agents — $10 per verified milestone</p>
+              </div>
+            </div>
+            <p className="mt-6 font-medium text-gray-700">
+              Same deal your parents gave you. But the work builds a real skill,
+              the money is USDT in the kid&apos;s own wallet, and an AI mentor
+              makes sure it&apos;s actually earned.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/chat" className="rounded-2xl border-2 border-black bg-[#FF6B9D] px-6 py-3 text-lg font-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
@@ -83,35 +93,38 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── Problem: two gaps, two cards ── */}
-        <h2 className="mt-12 text-center text-3xl font-black">Why parents give up on coding lessons</h2>
+        {/* ── The problem ── */}
+        <h2 className="mt-14 text-center text-3xl font-black">
+          Why &quot;show me what you built&quot; never works
+        </h2>
         <section className="mx-auto mt-6 grid max-w-4xl gap-6 md:grid-cols-2">
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
             <p className="text-4xl">😶</p>
-            <h3 className="mt-3 text-2xl font-black">The visibility gap</h3>
+            <h3 className="mt-3 text-2xl font-black">Kids have no one to show</h3>
             <p className="mt-3 font-medium text-gray-700">
-              You can&apos;t read the code. So &quot;show me what you built&quot;
-              dies in week one — and &quot;yeah dad, I worked on it&quot; goes undetected.
+              They&apos;re excited — but nobody around them understands what they
+              built. Excitement with no audience dies in a week.
             </p>
           </div>
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(62,193,211,1)]">
             <p className="text-4xl">🤞</p>
-            <h3 className="mt-3 text-2xl font-black">The trust gap</h3>
+            <h3 className="mt-3 text-2xl font-black">Parents can&apos;t verify anything</h3>
             <p className="mt-3 font-medium text-gray-700">
-              Family wants to fund a kid&apos;s project — but money goes on faith,
-              with no way to verify what actually got delivered.
+              Is the work real? Is it age-appropriate? Is my money buying
+              progress or just getting spent? No way to know — so most parents
+              never commit.
             </p>
           </div>
         </section>
 
         {/* ── How it works ── */}
-        <section id="how" className="mt-12 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
-          <h2 className="text-center text-3xl font-black">BabyShark closes both gaps</h2>
+        <section id="how" className="mt-14 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
+          <h2 className="text-center text-3xl font-black">BabyShark fixes both</h2>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["1", "👨‍👩‍👦", "Parent funds a milestone", "100 USDT if you ship 3 checkpoints."],
-              ["2", "💻", "Kid builds & checks in daily", "BabyShark reads every commit and coaches."],
-              ["3", "🦈", "Pitch time", "BabyShark reviews the repo and asks curious questions."],
+              ["1", "👨‍👩‍👦", "Parent funds a milestone", "10 USDT per week of verified progress."],
+              ["2", "💻", "Kid ships commits", "BabyShark reads every one and coaches daily."],
+              ["3", "🦈", "Pitch time", "The Shark reviews the repo and asks curious questions."],
               ["4", "💸", "Policy-gated payout", "Verified work → USDT lands in the kid's own wallet."],
             ].map(([n, emoji, title, sub]) => (
               <div key={n} className="flex flex-col items-center rounded-2xl border-2 border-black bg-[#FFFDF5] p-5 text-center">
@@ -130,47 +143,58 @@ export default function Landing() {
           </p>
         </section>
 
-        {/* ── Back a builder ── */}
-        <section className="mt-12 grid items-center gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border-4 border-black overflow-hidden shadow-[12px_12px_0_0_rgba(122,229,130,1)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/shark-hero.png" alt="BabyShark mascot" className="h-auto w-full" />
+        {/* ── Flywheel ── */}
+        <section className="mt-14 rounded-3xl border-4 border-black bg-black p-8 text-white shadow-[12px_12px_0_0_rgba(122,229,130,1)] sm:p-12">
+          <p className="text-center text-xs font-black uppercase tracking-widest text-[#7AE582]">
+            Why it compounds
+          </p>
+          <h2 className="mt-2 text-center text-3xl font-black">The BabyShark flywheel 🔄</h2>
+          <div className="mx-auto mt-10 max-w-2xl space-y-0">
+            {[
+              ["💵", "Parents commit USDT to clear milestones", "#FFD23F"],
+              ["💻", "The kid builds — with a coach who gets them", "#3EC1D3"],
+              ["🔍", "The agent verifies real progress from the repo", "#7AE582"],
+              ["😊", "Parents see receipts and trust grows", "#FF6B9D"],
+              ["🌱", "Backers join in — funding bigger milestones", "#B388FF"],
+              ["🔁", "…which funds bigger builds. Repeat.", "#FFD23F"],
+            ].map(([e, t, c], i, arr) => (
+              <div key={i}>
+                <div className="flex items-center gap-4 rounded-2xl border-2 border-white/20 bg-white/5 p-4">
+                  <span className="text-3xl">{e}</span>
+                  <p className="font-bold" style={{ color: c }}>{t}</p>
+                </div>
+                {i < arr.length - 1 && (
+                  <p className="py-1 pl-8 text-xl font-black text-[#7AE582]" aria-hidden>↓</p>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="rounded-3xl border-4 border-black bg-white p-10 shadow-[12px_12px_0_0_rgba(122,229,130,1)]">
-            <p className="text-xs font-black uppercase tracking-widest text-gray-500">Not just parents</p>
-            <h2 className="mt-2 text-3xl font-black">Anyone can back a builder 🌱</h2>
-            <p className="mt-4 text-lg font-medium text-gray-700">
-              Grandparents, uncles, neighbors — anyone can scan a QR code and
-              deposit USDT into a kid&apos;s project treasury. Visible stake in a
-              kid shipping. Like GoFundMe — but the AI verifies the work before
-              money moves.
-            </p>
-            <Link href="/fund" className="mt-6 inline-block rounded-2xl border-2 border-black bg-[#7AE582] px-6 py-3 font-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
-              See a project page →
-            </Link>
-          </div>
+          <p className="mt-8 text-center text-lg font-medium text-gray-300">
+            Every payout is proof of progress. Proof of progress attracts more funding.
+            More funding buys more ambition.
+          </p>
         </section>
 
         {/* ── Safety band ── */}
-        <section className="mt-12 rounded-3xl border-4 border-black bg-black p-8 text-white shadow-[12px_12px_0_0_rgba(255,107,157,1)]">
+        <section className="mt-14 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(255,107,157,1)] sm:p-12">
           <h2 className="text-3xl font-black">
             Parents stay in control. <span className="bg-[#3EC1D3] px-2 text-black">Always.</span>
           </h2>
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             <div>
-              <p className="font-black text-[#FFD23F]">You set the budget</p>
-              <p className="mt-2 text-gray-300">Fixed milestone amounts. The AI can never invent more.</p>
+              <p className="font-black text-[#FF6B9D]">You set the budget</p>
+              <p className="mt-2 font-medium text-gray-700">Fixed milestone amounts. The AI can never invent more.</p>
             </div>
             <div>
-              <p className="font-black text-[#FFD23F]">Code guards the money</p>
-              <p className="mt-2 text-gray-300">
+              <p className="font-black text-[#FF6B9D]">Code guards the money</p>
+              <p className="mt-2 font-medium text-gray-700">
                 A deterministic policy engine — not the AI — approves every payout.
                 Big ones need your explicit OK.
               </p>
             </div>
             <div>
-              <p className="font-black text-[#FFD23F]">Your kid owns their wallet</p>
-              <p className="mt-2 text-gray-300">
+              <p className="font-black text-[#FF6B9D]">Your kid owns their wallet</p>
+              <p className="mt-2 font-medium text-gray-700">
                 Keys generated in your browser via Tether&apos;s WDK. Rewards go straight to them — no middleman.
               </p>
             </div>
@@ -178,7 +202,7 @@ export default function Landing() {
         </section>
 
         {/* ── FAQ ── */}
-        <section className="mt-12 mb-4">
+        <section className="mt-14 mb-4">
           <h2 className="mb-4 text-center text-3xl font-black">Questions we get 🤔</h2>
           <div className="mx-auto max-w-4xl space-y-3">
             <Faq q="Can someone prompt-inject the agent into draining the treasury?">
@@ -227,7 +251,7 @@ export default function Landing() {
         </section>
 
         {/* ── CTA ── */}
-        <section className="mt-12 mb-4 rounded-3xl border-4 border-black bg-white p-10 text-center shadow-[12px_12px_0_0_rgba(62,193,211,1)]">
+        <section className="mb-4 rounded-3xl border-4 border-black bg-white p-10 text-center shadow-[12px_12px_0_0_rgba(62,193,211,1)]">
           <h2 className="text-4xl font-black">Ready to meet the Shark?</h2>
           <p className="mx-auto mt-3 max-w-xl text-lg font-medium text-gray-600">
             Fund a milestone tonight. Watch your kid show up tomorrow.
