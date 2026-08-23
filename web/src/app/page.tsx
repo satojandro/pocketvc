@@ -97,15 +97,7 @@ export default function Landing() {
         </section>
 
         {/* ── The problem ── */}
-        <h2 className="mt-14 text-center text-3xl font-black">
-          Kids want money, to be understood, and to have fun while learning.
-          Parents want skills, independence, and proof it&apos;s real.
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg font-medium text-gray-600">
-          The gap: where kids could apply themselves is totally unknown to
-          parents. BabyShark bridges it — with the right guidance, incentives,
-          and structure to drive growth.
-        </p>
+        <h2 className="mt-14 text-center text-3xl font-black">What kids want vs. what parents want</h2>
         <section className="mx-auto mt-6 grid max-w-4xl gap-6 md:grid-cols-2">
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
             <p className="text-4xl">🧒</p>
@@ -126,6 +118,29 @@ export default function Landing() {
               <li>🚀 Independence and self-sufficiency</li>
               <li>✅ Proof that their money buys progress</li>
             </ul>
+          </div>
+        </section>
+
+        {/* ── Without it ── */}
+        <section className="mt-12 rounded-3xl border-4 border-black bg-[#1a1a1a] p-8 text-white shadow-[12px_12px_0_0_rgba(255,107,157,1)] sm:p-12">
+          <p className="text-center text-xs font-black uppercase tracking-widest text-[#FF6B9D]">Without it</p>
+          <h2 className="mt-2 text-center text-3xl font-black">This is what happens today</h2>
+          <div className="mx-auto mt-8 grid max-w-3xl gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border-2 border-white/25 bg-white/5 p-6">
+              <p className="text-4xl">📉</p>
+              <h3 className="mt-3 text-xl font-black">Without recognition, kids lose interest.</h3>
+              <p className="mt-2 font-medium text-gray-300">
+                Excitement with no audience fades. The laptop closes. The curiosity moves on to something else.
+              </p>
+            </div>
+            <div className="rounded-2xl border-2 border-white/25 bg-white/5 p-6">
+              <p className="text-4xl">🔒</p>
+              <h3 className="mt-3 text-xl font-black">Without funding, ambition never takes off.</h3>
+              <p className="mt-2 font-medium text-gray-300">
+                Real projects need real resources — tools, courses, infrastructure.
+                Parents who can&apos;t verify progress can&apos;t confidently provide them.
+              </p>
+            </div>
           </div>
         </section>
 
