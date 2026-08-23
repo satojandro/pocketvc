@@ -10,7 +10,13 @@ export default function Landing() {
         {/* Nav */}
         <nav className="flex items-center justify-between rounded-2xl bg-white px-6 py-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
           <span className="text-2xl font-black tracking-tight">BabyShark VC 🦈</span>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <Link href="/eli5" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-pink-100">
+              ELI5 🖼️
+            </Link>
+            <Link href="/how-it-works" className="rounded-xl border-2 border-black bg-white px-3 py-2 text-sm font-bold hover:bg-cyan-100">
+              Under the hood 🔧
+            </Link>
             <Link href="/chat" className="rounded-xl border-2 border-black px-4 py-2 font-bold hover:bg-yellow-100">
               Kid login
             </Link>
