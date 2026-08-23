@@ -101,14 +101,7 @@ function Frame({ children, bg = "#FFFFFF" }: { children: React.ReactNode; bg?: s
   );
 }
 
-function StepNumber({ n, color }: { n: number; color: string }) {
-  return (
-    <div className="flex items-start gap-4">
-      <span className="text-6xl font-black leading-none" style={{ color }}>{n}</span>
-      <div className="pt-1">{null}</div>
-    </div>
-  );
-}
+
 
 export default function Eli5() {
   return (

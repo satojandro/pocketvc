@@ -1,6 +1,6 @@
 /** Create the family's project pool wallet (server-held escrow). Returns public address only. */
 import { NextResponse } from "next/server";
-import { createPool, getPoolForFamily } from "@/lib/pool";
+import { createPool } from "@/lib/pool";
 
 export const runtime = "nodejs";
 

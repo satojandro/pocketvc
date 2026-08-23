@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
     const toolActivity: { tool: string; summary: string }[] = [];
     for (const step of result.steps) {
-      for (const tc of (step.toolCalls as any[]) ?? []) {
+      for (const tc of (step.toolCalls as Array<{toolName: string; input?: Record<string, unknown>}>) ?? []) {
         const input = tc.input ?? {};
         let summary = "";
         switch (tc.toolName) {
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
             summary = "updated memory";
             break;
           case "propose_payout": {
-            const r = (step.toolResults as any[])?.find((t) => t.toolName === "propose_payout");
+            const r = (step.toolResults as Array<{toolName: string; output?: {decision?: string}}>)?.find((t) => t.toolName === "propose_payout");
             summary = r?.output?.decision
               ? `payout ${r.output.decision === "APPROVE" ? "approved ✅" : r.output.decision === "HOLD_FOR_PARENT" ? "held for parent ⏳" : "rejected ❌"}`
               : "proposed payout";

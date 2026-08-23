@@ -19,7 +19,7 @@ export default function Setup() {
   const [wallets, setWallets] = useState<{ role: string; name: string; address: string }[]>([]);
   const [seeds, setSeeds] = useState<{ role: string; seed: string }[]>([]);
 
-  async function createWallet(role: "treasury" | "kid") {
+  async function createWallet(role: "treasury" | "kid" | "pool") {
     // 1. generate keys IN THE BROWSER (never sent anywhere)
     const seedPhrase = generateSeedPhrase();
     // 2. derive the address locally using the WDK SDK

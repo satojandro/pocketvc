@@ -74,7 +74,7 @@ export default function Chat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next }),
       });
-      const data = await res.json();
+      const data: { text?: string; error?: string; toolActivity?: {tool: string; summary: string}[] } = await res.json();
       setActivity([]);
       if (data.toolActivity?.length) {
         // reveal activity chips one by one for effect
@@ -87,7 +87,7 @@ export default function Chat() {
       }
       setActivity([]);
       setMessages([...next, { role: "assistant", content: data.text ?? `⚠️ ${data.error ?? "error"}`, toolActivity: data.toolActivity }]);
-      if (data.toolActivity?.some((t: any) => t.summary.includes("approved"))) {
+      if (data.toolActivity?.some((t: { summary: string }) => t.summary.includes("approved"))) {
         setCelebrate(true);
         setTimeout(() => setCelebrate(false), 3000);
       }

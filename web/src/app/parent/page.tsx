@@ -10,14 +10,14 @@ function usdt(base: number | string): string {
 }
 
 interface Milestone {
-  id: string; budget: number; paidOut: number; description: string; status: string;
+  id: string; budget: string; paidOut: string; kidAddress: string; description: string; status: string;
 }
 interface Audit {
   ts: string; decision: string; proposal: { amount: string; reason: string };
 }
 
 export default function Parent() {
-  const [data, setData] = useState<{ milestones: Milestone[]; audit: Audit[]; kid: any; proposals?: any[] } | null>(null);
+  const [data, setData] = useState<{ milestones: Milestone[]; audit: Audit[]; kid: Record<string, unknown>; proposals?: Record<string, unknown>[] } | null>(null);
   const [err, setErr] = useState("");
   const [newDesc, setNewDesc] = useState("");
   const [newBudget, setNewBudget] = useState("");
@@ -91,7 +91,7 @@ export default function Parent() {
               <p className="mt-2 font-medium text-gray-500">No pending proposals.</p>
             ) : (
               <div className="mt-3 space-y-3">
-                {data.proposals.filter(p => p.status === "pending").map((p) => (
+                {((data.proposals ?? []) as Array<{id: string; status: string; proposedAt: string; description: string; budgetUsdt: number; learningOutcome?: string; transferableSkills?: string}>).filter(p => p.status === "pending").map((p) => (
                   <div key={p.id} className="rounded-2xl border-2 border-black bg-[#FFFBEF] p-5 shadow-[5px_5px_0_0_rgba(0,0,0,1)]">
                     <p className="text-xs font-bold uppercase text-gray-500">Proposed {new Date(p.proposedAt).toLocaleString()}</p>
                     <p className="mt-1 text-lg font-black">{p.description}</p>
