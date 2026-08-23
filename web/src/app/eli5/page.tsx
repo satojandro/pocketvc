@@ -133,7 +133,7 @@ export default function Eli5() {
         {/* FRAME 1 */}
         <div className="mt-8">
           <div className="flex items-start gap-4">
-            <span className="text-7xl font-black leading-none text-[#FF6B9D]">1</span>
+            <span className="inline-block rounded-2xl border-4 border-black bg-white px-4 py-1 text-7xl font-black leading-none text-[#FF6B9D] shadow-[6px_6px_0_0_rgba(0,0,0,1)]">1</span>
             <h2 className="pt-2 text-3xl font-black">Dad makes a promise. 🤙</h2>
           </div>
           <Frame bg="#FFF7F9">
@@ -160,7 +160,7 @@ export default function Eli5() {
         {/* FRAME 2 */}
         <div className="mt-8">
           <div className="flex items-start gap-4">
-            <span className="text-7xl font-black leading-none text-[#3EC1D3]">2</span>
+            <span className="inline-block rounded-2xl border-4 border-black bg-white px-4 py-1 text-7xl font-black leading-none text-[#3EC1D3] shadow-[6px_6px_0_0_rgba(0,0,0,1)]">2</span>
             <h2 className="pt-2 text-3xl font-black">Mateo builds. BabyShark watches. 👀</h2>
           </div>
           <Frame bg="#F2FBFD">
@@ -190,7 +190,7 @@ export default function Eli5() {
         {/* FRAME 3 */}
         <div className="mt-8">
           <div className="flex items-start gap-4">
-            <span className="text-7xl font-black leading-none text-[#7AE582]">3</span>
+            <span className="inline-block rounded-2xl border-4 border-black bg-white px-4 py-1 text-7xl font-black leading-none text-[#05C46B] shadow-[6px_6px_0_0_rgba(0,0,0,1)]">3</span>
             <h2 className="pt-2 text-3xl font-black">&quot;I&apos;m done!&quot; — says who? 🕵️</h2>
           </div>
           <Frame bg="#F4FCF0">
@@ -215,7 +215,7 @@ export default function Eli5() {
         {/* FRAME 4 */}
         <div className="mt-8">
           <div className="flex items-start gap-4">
-            <span className="text-7xl font-black leading-none text-[#111]">4</span>
+            <span className="inline-block rounded-2xl border-4 border-black bg-white px-4 py-1 text-7xl font-black leading-none text-[#111] shadow-[6px_6px_0_0_rgba(0,0,0,1)]">4</span>
             <h2 className="pt-2 text-3xl font-black">The shark can&apos;t pay. It can only ask. 🙅</h2>
           </div>
           <Frame bg="#FBFBFE">
@@ -244,7 +244,7 @@ export default function Eli5() {
         {/* FRAME 5 */}
         <div className="mt-8">
           <div className="flex items-start gap-4">
-            <span className="text-7xl font-black leading-none text-[#F59E0B]">5</span>
+            <span className="inline-block rounded-2xl border-4 border-black bg-white px-4 py-1 text-7xl font-black leading-none text-[#F59E0B] shadow-[6px_6px_0_0_rgba(0,0,0,1)]">5</span>
             <h2 className="pt-2 text-3xl font-black">Paid. Into HIS piggy bank. 🎉</h2>
           </div>
           <Frame bg="#FFFBEB">
@@ -286,7 +286,7 @@ export default function Eli5() {
           </div>
         </div>
 
-        <footer className="py-6 text-center text-sm font-semibold text-black/60">
+        <footer className="mx-auto max-w-3xl rounded-2xl bg-white px-6 py-4 text-center text-sm font-semibold text-black shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
           Built at Aleph Hackathon 2026 · Powered by Tether WDK
         </footer>
       </div>

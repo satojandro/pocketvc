@@ -175,6 +175,29 @@ export default function Landing() {
           </p>
         </section>
 
+        {/* ── Back a builder ── */}
+        <section className="mt-14 grid items-center gap-6 md:grid-cols-2">
+          <div className="rounded-3xl border-4 border-black overflow-hidden shadow-[12px_12px_0_0_rgba(122,229,130,1)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/shark-hero.png" alt="BabyShark mascot with a pile of USDT" className="h-auto w-full" />
+          </div>
+          <div className="rounded-3xl border-4 border-black bg-white p-10 shadow-[12px_12px_0_0_rgba(122,229,130,1)]">
+            <p className="text-xs font-black uppercase tracking-widest text-gray-500">Not just parents</p>
+            <h2 className="mt-2 text-3xl font-black">Anyone can back a builder 🌱</h2>
+            <p className="mt-4 text-lg font-medium text-gray-700">
+              Every kid gets a project page with their milestones, build log, and
+              a QR code for their treasury. Grandparents, uncles, neighbors —
+              anyone can scan and deposit USDT directly. Visible stake in a kid
+              shipping — released only when the AI verifies the milestone.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="/fund" className="rounded-2xl border-2 border-black bg-[#7AE582] px-6 py-3 font-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+                See Mateo&apos;s project page →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ── Safety band ── */}
         <section className="mt-14 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(255,107,157,1)] sm:p-12">
           <h2 className="text-3xl font-black">
