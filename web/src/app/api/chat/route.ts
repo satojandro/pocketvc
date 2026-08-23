@@ -47,7 +47,39 @@ export async function POST(req: Request) {
       stopWhen: stepCountIs(12),
     });
 
-    return NextResponse.json({ text: result.text });
+    const toolActivity: { tool: string; summary: string }[] = [];
+    for (const step of result.steps) {
+      for (const tc of (step.toolCalls as any[]) ?? []) {
+        const input = tc.input ?? {};
+        let summary = "";
+        switch (tc.toolName) {
+          case "review_repo":
+            summary = `checked ${input.repo ?? "repo"}`;
+            break;
+          case "read_milestone":
+            summary = "checked milestone budget";
+            break;
+          case "read_journal":
+            summary = "recalled past sessions";
+            break;
+          case "update_kid_profile":
+            summary = "updated memory";
+            break;
+          case "propose_payout": {
+            const r = (step.toolResults as any[])?.find((t) => t.toolName === "propose_payout");
+            summary = r?.output?.decision
+              ? `payout ${r.output.decision === "APPROVE" ? "approved ✅" : r.output.decision === "HOLD_FOR_PARENT" ? "held for parent ⏳" : "rejected ❌"}`
+              : "proposed payout";
+            break;
+          }
+          default:
+            summary = tc.toolName;
+        }
+        toolActivity.push({ tool: tc.toolName, summary });
+      }
+    }
+
+    return NextResponse.json({ text: result.text, toolActivity });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: err instanceof Error ? err.message : String(err) }, { status: 500 });
