@@ -19,6 +19,28 @@ interface Audit {
 export default function Parent() {
   const [data, setData] = useState<{ milestones: Milestone[]; audit: Audit[]; kid: any } | null>(null);
   const [err, setErr] = useState("");
+  const [newDesc, setNewDesc] = useState("");
+  const [newBudget, setNewBudget] = useState("");
+  const [creating, setCreating] = useState(false);
+
+  async function createMilestone() {
+    if (!newDesc.trim() || !newBudget.trim()) return;
+    setCreating(true);
+    try {
+      const res = await fetch("/api/milestones", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description: newDesc, budgetUsdt: newBudget }),
+      });
+      const d = await res.json();
+      if (d.ok) {
+        setNewDesc(""); setNewBudget("");
+        // refresh
+        const r2 = await fetch("/api/dashboard");
+        setData(await r2.json());
+      } else { setErr(d.error); }
+    } finally { setCreating(false); }
+  }
 
   useEffect(() => {
     fetch("/api/dashboard").then(r => r.json()).then(d => d.error ? setErr(d.error) : setData(d)).catch(e => setErr(String(e)));
@@ -54,6 +76,35 @@ export default function Parent() {
               <div className="rounded-2xl border-2 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(255,210,63,1)]">
                 <p className="text-sm font-bold uppercase text-gray-500">Remaining</p>
                 <p className="mt-1 text-3xl font-black">{usdt(totalBudget - totalPaid)} <span className="text-lg">USDT</span></p>
+              </div>
+            </div>
+
+            {/* Create milestone */}
+            <div className="mt-8 rounded-2xl border-2 border-black bg-[#F5F3FF] p-5 shadow-[5px_5px_0_0_rgba(179,136,255,1)]">
+              <p className="font-black">➕ New milestone</p>
+              <p className="mt-1 text-sm font-medium text-gray-600">
+                Set a commitment for your kid. The agent can verify progress but can never create milestones — that&apos;s yours.
+              </p>
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                <input
+                  value={newDesc}
+                  onChange={(e) => setNewDesc(e.target.value)}
+                  placeholder="e.g. Candy Tycoon: full planning doc + money system"
+                  className="flex-1 rounded-xl border-2 border-black px-4 py-2 font-medium outline-none focus:bg-white"
+                />
+                <input
+                  value={newBudget}
+                  onChange={(e) => setNewBudget(e.target.value)}
+                  placeholder="USDT (e.g. 10)"
+                  className="w-full rounded-xl border-2 border-black px-4 py-2 font-mono outline-none focus:bg-white sm:w-40"
+                />
+                <button
+                  onClick={createMilestone}
+                  disabled={creating || !newDesc.trim() || !newBudget.trim()}
+                  className="rounded-xl border-2 border-black bg-[#7AE582] px-5 py-2 font-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none disabled:opacity-40"
+                >
+                  {creating ? "…" : "Create"}
+                </button>
               </div>
             </div>
 
