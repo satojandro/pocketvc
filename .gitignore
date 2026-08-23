@@ -8,3 +8,5 @@ cache/
 out/
 lib/
 .env
+web/node_modules/
+web/.next/
