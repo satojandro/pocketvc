@@ -76,6 +76,12 @@ Permalinks to WDK integration:
 - Payout execution boundary: `src/agent/tools.ts` → `propose_payout` (policy-approved amounts are dispatched to the wallet layer)
 - Wallet operations: see `docs/BUILD_LOG.md` Phase 0 (wallet create/unlock/get/send transcripts)
 
+## Roadmap
+
+The weekend proves the loop; [docs/ROADMAP.md](docs/ROADMAP.md) is the product:
+one-click WDK wallet setup, MoonPay card→USDT on-ramp, anyone-can-deposit QR
+crowdfunding for kids' projects, gasless first payments, subgraph indexing.
+
 ## Built for
 
 [Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track, Aug 22–23. Team: Alejandro Avellaneda.
