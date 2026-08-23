@@ -84,6 +84,9 @@ Permalinks to WDK integration:
 - Payout execution boundary: `src/agent/tools.ts` → `propose_payout` (policy-approved amounts are dispatched to the wallet layer)
 - Wallet operations: see `docs/BUILD_LOG.md` Phase 0 (wallet create/unlock/get/send transcripts)
 
+## For judges
+Start with [docs/JUDGES_GUIDE.md](docs/JUDGES_GUIDE.md) — the one-page overview: idea, WDK integration map, architecture, verified demo state, honest limits.
+
 ## Security disclosure
 
 The setup wizard creates wallets server-side for demo ergonomics; production
