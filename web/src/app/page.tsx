@@ -64,14 +64,25 @@ export default function Landing() {
 
         {/* Pain / solution */}
         <section id="how" className="mt-6 grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)]">
+          <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(255,107,157,1)] md:col-span-2">
             <div className="text-4xl">😕</div>
-            <h2 className="mt-4 text-2xl font-black">The problem</h2>
-            <p className="mt-3 font-medium text-gray-700">
-              Your kid is building amazing things — but you can&apos;t read the code.
-              So &quot;show me what you did&quot; dies in week one, and
-              &quot;yeah dad, I worked on it&quot; goes undetected.
-            </p>
+            <h2 className="mt-4 text-2xl font-black">Two gaps nobody bridges</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border-2 border-black bg-[#FFE5EE] p-4">
+                <p className="font-black">😶 The visibility gap</p>
+                <p className="mt-2 font-medium text-gray-700">
+                  You can&apos;t read the code, so &quot;show me what you built&quot;
+                  dies in week one — and &quot;yeah dad, I worked on it&quot; goes undetected.
+                </p>
+              </div>
+              <div className="rounded-2xl border-2 border-black bg-[#E5F6FF] p-4">
+                <p className="font-black">🤞 The funding trust gap</p>
+                <p className="mt-2 font-medium text-gray-700">
+                  Even when family wants to fund a kid&apos;s project, money goes
+                  on faith — with no way to verify what actually got delivered.
+                </p>
+              </div>
+            </div>
           </div>
           <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[10px_10px_0_0_rgba(62,193,211,1)]">
             <div className="text-4xl">🦈</div>
@@ -91,6 +102,33 @@ export default function Landing() {
               code controls how much can move.
             </p>
           </div>
+        </section>
+
+        {/* How it works */}
+        <section className="mt-6 rounded-3xl border-4 border-black bg-white p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
+          <h2 className="text-center text-3xl font-black">How it works</h2>
+          <div className="mt-8 flex flex-col items-stretch gap-4 md:flex-row md:items-center">
+            {[
+              ["1", "👨‍👩‍👦", "Parent funds a milestone", "100 USDT if you ship 3 checkpoints."],
+              ["2", "💻", "Kid builds & checks in daily", "BabyShark reads every commit and coaches."],
+              ["3", "🦈", "Pitch time", "BabyShark reviews the repo and asks the hard (curious) questions."],
+              ["4", "💸", "Policy-gated payout", "Verified work → USDT lands in the kid's own wallet."],
+            ].map(([n, emoji, title, sub], i, arr) => (
+              <div key={n} className="flex flex-1 flex-col items-center text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#FFD23F] text-xl font-black shadow-[3px_3px_0_0_rgba(0,0,0,1)]">{n}</div>
+                <div className="mt-2 text-3xl">{emoji}</div>
+                <p className="mt-2 font-black leading-tight">{title}</p>
+                <p className="mt-1 text-sm font-medium text-gray-600">{sub}</p>
+                {i < arr.length - 1 && <div className="hidden text-2xl font-black md:absolute md:right-0 md:top-1/2 md:block" aria-hidden>→</div>}
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-center font-bold text-gray-700">
+            Want it explained like you&apos;re five?{" "}
+            <Link href="/eli5" className="underline decoration-[#FF6B9D] decoration-4 underline-offset-4 hover:text-[#FF6B9D]">
+              Read the picture-book version →
+            </Link>
+          </p>
         </section>
 
         {/* Safety band */}
