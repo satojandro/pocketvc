@@ -17,7 +17,7 @@ interface Audit {
 }
 
 export default function Parent() {
-  const [data, setData] = useState<{ milestones: Milestone[]; audit: Audit[]; kid: any } | null>(null);
+  const [data, setData] = useState<{ milestones: Milestone[]; audit: Audit[]; kid: any; proposals?: any[] } | null>(null);
   const [err, setErr] = useState("");
   const [newDesc, setNewDesc] = useState("");
   const [newBudget, setNewBudget] = useState("");
@@ -43,7 +43,13 @@ export default function Parent() {
   }
 
   useEffect(() => {
-    fetch("/api/dashboard").then(r => r.json()).then(d => d.error ? setErr(d.error) : setData(d)).catch(e => setErr(String(e)));
+    Promise.all([fetch("/api/dashboard"), fetch("/api/milestone-proposals")])
+      .then(async ([a, b]) => {
+        const d = await a.json();
+        const p = await b.json();
+        if (d.error) setErr(d.error); else setData({ ...d, proposals: p.proposals ?? [] });
+      })
+      .catch(e => setErr(String(e)));
   }, []);
 
   const totalBudget = data?.milestones.reduce((a, m) => a + Number(m.budget), 0) ?? 0;
@@ -78,6 +84,42 @@ export default function Parent() {
                 <p className="mt-1 text-3xl font-black">{usdt(totalBudget - totalPaid)} <span className="text-lg">USDT</span></p>
               </div>
             </div>
+
+            {/* Pending milestone proposals (agent-drafted) */}
+            <h2 className="mt-8 text-2xl font-black">Milestone proposals from BabyShark</h2>
+            {(data.proposals?.filter(p => p.status === "pending") ?? []).length === 0 ? (
+              <p className="mt-2 font-medium text-gray-500">No pending proposals.</p>
+            ) : (
+              <div className="mt-3 space-y-3">
+                {data.proposals.filter(p => p.status === "pending").map((p) => (
+                  <div key={p.id} className="rounded-2xl border-2 border-black bg-[#FFFBEF] p-5 shadow-[5px_5px_0_0_rgba(0,0,0,1)]">
+                    <p className="text-xs font-bold uppercase text-gray-500">Proposed {new Date(p.proposedAt).toLocaleString()}</p>
+                    <p className="mt-1 text-lg font-black">{p.description}</p>
+                    <p className="mt-1 font-black">{p.budgetUsdt} USDT</p>
+                    <div className="mt-3 space-y-2 text-sm">
+                      <p><b>🎓 What they&apos;ll learn:</b> {p.learningOutcome}</p>
+                      <p><b>🚀 Why it matters:</b> {p.transferableSkills}</p>
+                    </div>
+                    <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={async () => {
+                          await fetch("/api/milestone-proposals", { method: "PUT", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ id: p.id, decision: "approved" }) });
+                          location.reload();
+                        }}
+                        className="rounded-xl border-2 border-black bg-green-300 px-4 py-2 font-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                      >✓ Approve</button>
+                      <button
+                        onClick={async () => {
+                          await fetch("/api/milestone-proposals", { method: "PUT", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ id: p.id, decision: "rejected" }) });
+                          location.reload();
+                        }}
+                        className="rounded-xl border-2 border-black bg-white px-4 py-2 font-bold shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                      >Not now</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Create milestone */}
             <div className="mt-8 rounded-2xl border-2 border-black bg-[#F5F3FF] p-5 shadow-[5px_5px_0_0_rgba(179,136,255,1)]">
