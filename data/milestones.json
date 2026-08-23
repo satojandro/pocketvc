@@ -1,18 +1,10 @@
 [
   {
-    "id": "ms-1",
-    "kidAddress": "0xC413707F12C1a08bFc8Dc6cD091bF69762B2b255",
-    "budget": "100000000n",
-    "paidOut": "100000000n",
-    "description": "Roblox obby with 3 working checkpoints",
-    "status": "paid"
-  },
-  {
-    "id": "ms-1787478695529",
+    "id": "ms-1787479366461",
     "kidAddress": "0xC413707F12C1a08bFc8Dc6cD091bF69762B2b255",
     "budget": "10000000n",
     "paidOut": "0n",
-    "description": "Candy Tycoon: full planning doc + money system",
+    "description": "Simulator Tycoon: Planning + Money System — A detailed planning document outlining the game mechanics and the core money system.",
     "status": "open"
   }
 ]

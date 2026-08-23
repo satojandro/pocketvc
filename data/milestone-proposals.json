@@ -3,10 +3,11 @@
     "id": "prop-1787479016254",
     "description": "Simulator Tycoon: Planning + Money System — A detailed planning document outlining the game mechanics and the core money system.",
     "budgetUsdt": 10,
-    "status": "pending",
+    "status": "approved",
     "proposedAt": "2026-08-23T09:56:56.254Z",
     "learningOutcome": "You’ll learn how to create a structured game plan and implement fundamental game systems.",
     "transferableSkills": "These skills will help you in any future game development projects, as planning and system development are key parts of game creation.",
-    "progressNote": "Proposed by BabyShark after discussing with the kid."
+    "progressNote": "Proposed by BabyShark after discussing with the kid.",
+    "decidedAt": "2026-08-23T10:02:46.460Z"
   }
 ]
