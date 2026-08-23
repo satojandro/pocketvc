@@ -14,6 +14,9 @@ export default function Landing() {
             <Link href="/chat" className="rounded-xl border-2 border-black px-4 py-2 font-bold hover:bg-yellow-100">
               Kid login
             </Link>
+            <Link href="/setup" className="rounded-xl border-2 border-black bg-white px-4 py-2 font-bold hover:bg-pink-100">
+              Family setup
+            </Link>
             <Link href="/fund" className="rounded-xl border-2 border-black bg-[#7AE582] px-4 py-2 font-bold hover:bg-green-200">
               Back a kid 🌱
             </Link>

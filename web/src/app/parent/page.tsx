@@ -95,6 +95,25 @@ export default function Parent() {
                 Note: QR points at the kid&apos;s project wallet for demo. Production flow:
                 deposits land in a per-project escrow, released only via policy-approved payouts. See the public version: /fund
               </p>
+              {/* Fiat on-ramp via WDK MoonPay module */}
+              <div className="mt-4 rounded-2xl border-2 border-black bg-[#F5F3FF] p-4">
+                <p className="font-black">💳 Add funds with a card</p>
+                <p className="mt-1 font-medium text-gray-700">
+                  Powered by WDK&apos;s MoonPay module: converts USD → USDT straight into
+                  the treasury. One command in production:
+                </p>
+                <code className="mt-2 block overflow-x-auto rounded-lg bg-black p-2 font-mono text-xs text-green-300">
+                  wdk buy --network sepolia --token usdt-test --fiat-amount 100 --wallet treasury
+                </code>
+                <a
+                  href={`https://www.moonpay.com/buy`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded-xl border-2 border-black bg-white px-4 py-2 text-sm font-bold shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                >
+                  Open MoonPay on-ramp ↗
+                </a>
+              </div>
             </div>
 
             {/* Audit trail */}
