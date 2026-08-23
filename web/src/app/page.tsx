@@ -129,8 +129,6 @@ export default function Landing() {
           </div>
         </section>
 
-        </section>
-
         {/* ── The opportunity ── */}
         <section className="mt-12 rounded-3xl border-4 border-black bg-[#FFF9DB] p-8 shadow-[10px_10px_0_0_rgba(0,0,0,1)] sm:p-12">
           <p className="text-center text-xs font-black uppercase tracking-widest text-gray-500">The opportunity</p>
