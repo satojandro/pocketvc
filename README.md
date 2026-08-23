@@ -4,105 +4,75 @@
 
 ## Why — Mateo's summer
 
-The origin story, and the pattern it generalizes: Mateo (12) spent the summer
-wanting to build a Roblox game. His dad wanted to encourage him but can't read
-code — no way to tell progress from play. Meanwhile Mateo earned $5 taking out
-the trash: money for work that teaches nothing. Two gaps: **visibility** (nobody
-who understands the work is watching) and **funding trust** (money given on faith).
-BabyShark closes both: an AI mentor reviews the real code daily, and USDT payouts
-release only when milestones verify. Anyone can back a kid's project via QR.
+Mateo (12) spent the summer wanting to build a Roblox game. His dad wanted to encourage him but can't read code — no way to tell progress from play. Meanwhile Mateo earned $5 taking out the trash: money for work that teaches nothing. Two gaps: **visibility** (nobody who understands the work is watching) and **funding trust** (money given on faith). BabyShark closes both: an AI mentor reviews the real code daily, and USDT payouts release only when milestones verify. Anyone can back a kid's project via QR.
 
-Parents want their kids to build things with code — but most parents can't evaluate the work. The kid has nobody who *understands* what they built, so daily show-and-tell dies, and slacking ("yeah dad, I worked on it") goes undetected.
-
-BabyShark fills that gap: an AI mentor that actually reads the repo, gets genuinely curious about what the kid built, coaches them between milestones — and when a milestone is done, releases real money from the parent's treasury to the kid's own self-custodial wallet.
-
-> The parent sets the budget. The AI judges the work. Code bounds the payout.
+> The parent sets the budget. The AI judges the work. Code controls how much can move.
 > **The AI decides *who deserves* the reward; deterministic code decides *how much can move*.**
 
 Not hostile like Shark Tank — a supportive coach who happens to hold the checkbook. The goal: the kid *wants* to show their work, because finally someone gets it.
 
 ## How it works
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system map (two diagrams: system flow + agent anatomy).
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full diagrams (system map + agent anatomy).
 
 ```
-Kid ──pitch──▶ BabyShark Agent (LLM reasoning)
+Kid ──pitch──▶ Shark Agent (LLM reasoning)
                     │ propose_payout()
                     ▼
               Policy Engine (deterministic caps & checks — no AI)
                     │ approved
                     ▼
-              WDK wallet layer (@tetherto/wdk-cli)
-              treasury (parent) ──USDT──▶ kid wallet (self-custodial)
+              Project Pool (platform-held escrow) ──USDT──▶ kid wallet (self-custodial)
 ```
 
-- **BabyShark Agent** — LLM via [Vercel AI SDK](https://sdk.vercel.ai): reviews commits/diffs through the GitHub API (`review_repo`), asks curiosity-driven questions, mentors between milestones with persistent memory of the kid, renders verdicts. Has **no send-money tool** — only `propose_payout()`, a request the policy engine can reject.
-- **Policy Engine** — plain TypeScript, zero AI: enforces milestone budgets, duplicate-payout protection, recipient binding, parent-confirm thresholds, treasury-self-pay refusal. Every proposal/decision logged to an append-only audit file.
-- **Wallet layer** — [`@tetherto/wdk-cli`](https://docs.wdk.tether.io): two self-custodial wallets (treasury + kid), ERC-20 USDT transfers, `--json` receipt trail. Keys never leave the machine; the LLM never sees them.
-- **Memory** — three tiers: session history (chat storage), kid profile (`data/kid.json`, agent-updated via tool), milestone journal (reuses the policy audit log). Injected into every prompt: "Welcome back — yesterday the checkpoints stumped you."
+- **Shark Agent** — LLM (Vercel AI SDK): reviews commits/diffs via GitHub API (`review_repo`), asks curiosity-driven questions, mentors between milestones with persistent memory, drafts milestone proposals with learning outcomes for parents, renders verdicts. Has NO send tool and no keys — only `propose_payout()`.
+- **Policy Engine** — plain TypeScript, zero AI: enforces milestone budgets, duplicate-payout protection, recipient binding, parent-confirm thresholds. Every proposal/decision logged to an append-only audit file.
+- **Wallet layer** — Tether WDK: three-wallet custody model (see below).
+
+## Three-wallet custody model
+
+| Wallet | Keys held by | Purpose | Seed shown? |
+|---|---|---|---|
+| Treasury | Parent (client-side) | Parent's own spending funds | Once |
+| Kid wallet | Kid (client-side) | Reward destination — fully theirs | Once |
+| Project pool | Server only | Functional escrow: committed + crowdfunded funds; exits ONLY via policy-approved payouts to the kid's pinned address | Never |
+
+Production upgrade: swap the custodial pool for an escrow smart contract (see [ROADMAP](docs/ROADMAP.md)).
+
+## WDK packages used
+
+Track requirement: `@tetherto/wdk` as core dependency, `@tetherto/wdk-cli` as core building block.
+
+| Package | Version | Where used |
+|---|---|---|
+| `@tetherto/wdk-cli` | 1.0.0-beta.3 | Wallet creation/unlock daemon, address derivation, balances, USDT transfers (`wdk send --json` receipts), token registry, MoonPay fiat module |
+| `@tetherto/wdk-wallet-evm` | 1.0.0-beta.17 | Client-side key generation in setup wizard (browser), address derivation verified byte-for-byte against CLI |
+
+**WDK integration permalinks** (judges look here first):
+- Payout execution (only money path): [`web/src/lib/wallet-exec.ts`](web/src/lib/wallet-exec.ts)
+- Agent's propose-only gateway: [`web/src/lib/tools.ts`](web/src/lib/tools.ts) → `propose_payout`
+- Policy engine (no AI, unit-tested): [`src/policy/engine.ts`](src/policy/engine.ts)
+- Pool wallet (functional escrow): [`web/src/lib/pool.ts`](web/src/lib/pool.ts)
 
 ## What's demonstrably working
 
-- ✅ End-to-end payout chain on Sepolia: MockUSDT contract deployed ([`0x4804…ed4b4`](https://sepolia.etherscan.io/address/0x4804e2dad314454739600cf4be3b8290427ed4b4)), treasury → kid transfer confirmed
-- ✅ Multi-turn agent session: kid claims milestone → BabyShark praises specifically, probes understanding, proposes $50 → **policy engine holds it for parent confirmation** → explained honestly to the kid → second feature proposed after approval
-- ✅ Bluff detection against real GitHub data: agent reviewed a repo with no checkpoint commits and asked the kid to explain instead of paying
-- ✅ 10 unit tests on the policy engine; full audit trail in `data/audit.log`
-
-## Repo map
-
-| Path | What |
-|---|---|
-| `contracts/MockUSDT.sol` | Test-only ERC-20 stand-in (OZ inheritance, 6 decimals) |
-| `script/DeployMockUSDT.s.sol` | Foundry deploy script |
-| `src/policy/engine.ts` | The money rules (pure functions, no AI) + tests |
-| `src/policy/store.ts` | Milestone store + append-only audit log |
-| `src/agent/prompt.ts` | BabyShark persona (coach-first, money rules, memory discipline) |
-| `src/agent/tools.ts` | The ONLY actions the LLM can take — incl. the single payout gateway |
-| `src/agent/github.ts` | GitHub repo review (commits, diffs, tree, languages) |
-| `src/agent/loop.ts` / `chat.ts` | AI SDK loop + terminal REPL |
-| `docs/ARCHITECTURE.md` | System map + agent anatomy diagrams |
-| `docs/BUILD_LOG.md` | Full build narrative w/ gotchas |
-| `docs/SETUP.md` | Clean-clone setup guide |
+- ✅ End-to-end payout chain on Sepolia: MockUSDT [`0x4804…ed4b4`](https://sepolia.etherscan.io/address/0x4804e2dad314454739600cf4be3b8290427ed4b4), treasury→kid transfers confirmed
+- ✅ Multi-turn agent session with repo verification, milestone proposals, policy holds, real on-chain payouts
+- ✅ Bluff detection against live GitHub data
+- ✅ Client-side key generation verified byte-for-byte against WDK SDK derivation
+- ✅ 10 policy-engine unit tests · full audit trail
 
 ## Run it
 
 ```bash
-git clone https://github.com/satojandro/pocketvc.git && cd pocketvc
+git clone https://github.com/satojandro/pocketvc.git && cd pocketvc/web
 npm install
-cp .env.example .env   # add an OpenRouter key + wallet addresses
-npm run chat           # talk to BabyShark 🦈
-npm test               # policy engine tests
+cp ../.env.example .env.local   # add OpenRouter key + wallet addresses
+npm run dev                      # http://localhost:3000
 ```
 
-Full setup (wallets, faucets, optional contract deploy): [`docs/SETUP.md`](docs/SETUP.md).
-
-## WDK packages used (Aleph Track requirement)
-
-- `@tetherto/wdk-cli@1.0.0-beta.3` — wallet creation/unlock daemon, address derivation & balances, ERC-20 sends with JSON receipts, token registry
-
-Permalinks to WDK integration:
-- Payout execution boundary: `src/agent/tools.ts` → `propose_payout` (policy-approved amounts are dispatched to the wallet layer)
-- Wallet operations: see `docs/BUILD_LOG.md` Phase 0 (wallet create/unlock/get/send transcripts)
-
-## For judges
-Start with [docs/JUDGES_GUIDE.md](docs/JUDGES_GUIDE.md) — the one-page overview: idea, WDK integration map, architecture, verified demo state, honest limits.
-
-## Security disclosure
-
-The setup wizard creates wallets server-side for demo ergonomics; production
-moves key generation client-side (WDK SDK in the browser — the server never
-sees seed material). Full note: [docs/SECURITY_NOTES.md](docs/SECURITY_NOTES.md).
-
-## Roadmap
-
-Payouts currently use standard EOA transfers (native gas). Next up: WDK's
-gasless ERC-4337 modules — fees settled in USDT, so family wallets never need
-native tokens at all. Full plan: [docs/ROADMAP.md](docs/ROADMAP.md).
-
-The weekend proves the loop; [docs/ROADMAP.md](docs/ROADMAP.md) is the product:
-one-click WDK wallet setup, MoonPay card→USDT on-ramp, anyone-can-deposit QR
-crowdfunding for kids' projects, gasless first payments, subgraph indexing.
+Full setup guide: [`docs/SETUP.md`](docs/SETUP.md) · For judges: [`docs/JUDGES_GUIDE.md`](docs/JUDGES_GUIDE.md)
 
 ## Built for
 
-[Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track, Aug 22–23. Team: Alejandro Avellaneda.
+[Aleph Hackathon 2026](https://hacki.crecimiento.build/h/aleph-hackathon-2026) — Tether WDK Track · Team: Alejandro Avellaneda
