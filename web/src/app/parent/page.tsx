@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import FundCard from "@/components/FundCard";
 
 function usdt(base: number | string): string {
   const n = typeof base === "string" ? parseInt(base) : base;
@@ -82,6 +83,18 @@ export default function Parent() {
               <pre className="whitespace-pre-wrap font-sans text-sm font-medium text-gray-700">
                 {JSON.stringify(data.kid, null, 2)}
               </pre>
+            </div>
+
+            {/* Fund the project */}
+            <div className="mt-8">
+              <FundCard
+                address={data.milestones[0]?.kidAddress ?? ""}
+                kidName="Mateo"
+              />
+              <p className="mt-2 text-sm font-semibold text-gray-500">
+                Note: QR points at the kid&apos;s project wallet for demo. Production flow:
+                deposits land in a per-project escrow, released only via policy-approved payouts.
+              </p>
             </div>
 
             {/* Audit trail */}
