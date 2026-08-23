@@ -5,7 +5,7 @@ this is the product it becomes.
 
 ## Shipped at Aleph 2026 (the weekend)
 
-- Self-custodial treasury + kid wallets via `@tetherto/wdk-cli` (keys never leave the family machine)
+- Self-custodial treasury + kid wallets via WDK SDK (client-side key gen) + project pool wallet (functional escrow, platform-held) via `@tetherto/wdk-cli`
 - MockUSDT milestone payouts on Sepolia, policy-gated, audit-logged
 - AI mentor-investor: repo review via GitHub API, coaching with memory, verdicts
 - Deterministic policy engine (no-AI money rules) + parent confirmation thresholds

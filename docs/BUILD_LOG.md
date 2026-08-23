@@ -106,7 +106,7 @@ All track requirements re-verified against the official WDK track page:
 - ✅ @tetherto/wdk-cli as core dependency (scoped package, beta.3)
 - ✅ Public repo + README naming modules
 - ✅ Permalinks to WDK integration files
-- ✅ Demo video: pending (script ready)
+- ⏳ Demo video: pending (script ready)
 - ✅ Package list + versions in SETUP.md
 - ✅ Clean-clone setup instructions (.env.example)
 - ✅ Network/token details incl. MockUSDT contract address
