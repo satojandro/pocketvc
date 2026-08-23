@@ -2,32 +2,37 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { generateSeedPhrase, deriveAddress } from "@/lib/client-wallet";
 
 /**
  * One-click family wallet setup — the account-creation flow.
- * Creates treasury + kid wallets via WDK, shows addresses + seed phrase once.
+ * KEYS ARE GENERATED IN THE BROWSER via the WDK SDK (@tetherto/wdk-wallet-evm).
+ * Only public addresses are registered server-side. The server never sees
+ * seed phrases or passphrases.
  */
 export default function Setup() {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [familyName, setFamilyName] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [activity, setActivity] = useState("");
   const [wallets, setWallets] = useState<{ role: string; name: string; address: string }[]>([]);
   const [seeds, setSeeds] = useState<{ role: string; seed: string }[]>([]);
-  const [activity, setActivity] = useState("");
 
   async function createWallet(role: "treasury" | "kid") {
+    // 1. generate keys IN THE BROWSER (never sent anywhere)
+    const seedPhrase = generateSeedPhrase();
+    // 2. derive the address locally using the WDK SDK
+    const address = deriveAddress(seedPhrase);
+    // 3. register ONLY the public address server-side
     const name = `${familyName.toLowerCase().replace(/[^a-z0-9]/g, "")}-${role}`;
-    const res = await fetch("/api/wallet/create", {
+    await fetch("/api/wallet/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, address }),
     });
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    setWallets((w) => [...w.filter((x) => x.role !== role), { role, name, address: data.address }]);
-    setSeeds((s) => [...s, { role, seed: data.seedPhrase }]);
-    return data;
+    setWallets((w) => [...w.filter((x) => x.role !== role), { role, name, address }]);
+    setSeeds((s) => [...s, { role, seed: seedPhrase }]);
   }
 
   async function run() {
@@ -35,9 +40,9 @@ export default function Setup() {
     setBusy(true);
     setStep(3);
     try {
-      setActivity("Creating the parent treasury wallet…");
+      setActivity("Generating the parent treasury keys in your browser…");
       await createWallet("treasury");
-      setActivity("Creating the kid's wallet…");
+      setActivity("Generating the kid's keys in your browser…");
       await createWallet("kid");
       setActivity("");
       setStep(4);
@@ -62,11 +67,15 @@ export default function Setup() {
             <>
               <h1 className="text-3xl font-black">Set up your family 🏠</h1>
               <p className="mt-3 font-medium text-gray-700">
-                We&apos;ll create two self-custodial wallets via Tether&apos;s WDK:
+                We&apos;ll create two self-custodial wallets using Tether&apos;s WDK —
                 a <b>treasury</b> you control, and a <b>wallet for your kid</b> that
-                only they control. Keys are generated on this machine and never
-                leave it.
+                only they control.
               </p>
+              <div className="mt-4 rounded-2xl border-2 border-black bg-[#F0FCF0] p-4 font-semibold">
+                🔑 Your keys are generated <u>in your browser</u> and never leave this
+                device. Our server only learns your public addresses — it couldn&apos;t
+                move your money even if it wanted to.
+              </div>
               <label className="mt-6 block text-sm font-black uppercase text-gray-500">Family name</label>
               <input
                 value={familyName}
@@ -87,8 +96,10 @@ export default function Setup() {
           {step === 3 && (
             <div className="py-10 text-center">
               <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-gray-200 border-t-[#3EC1D3]" />
-              <p className="mt-6 text-xl font-black">{activity || "Generating keys locally…"}</p>
-              <p className="mt-2 font-medium text-gray-500">This takes about 30 seconds. Keys never leave your device.</p>
+              <p className="mt-6 text-xl font-black">{activity}</p>
+              <p className="mt-2 font-medium text-gray-500">
+                Keys are being generated locally by the WDK SDK — nothing is sent to any server.
+              </p>
             </div>
           )}
 
@@ -119,6 +130,7 @@ export default function Setup() {
                 ))}
                 <p className="mt-2 text-sm font-semibold text-red-600">
                   Anyone with these words controls the money. Store them offline.
+                  These were generated in your browser and were never transmitted.
                 </p>
               </div>
 
@@ -133,7 +145,7 @@ export default function Setup() {
         </div>
 
         <p className="mt-4 text-center text-sm font-semibold text-black/60">
-          Powered by @tetherto/wdk-cli · keys generated &amp; stored on-device · self-custodial by design
+          Powered by @tetherto/wdk-wallet-evm · keys generated in-browser · self-custodial by design
         </p>
       </div>
     </main>

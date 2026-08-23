@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.35",
+    "@noble/hashes": "^2.3.0",
+    "@scure/bip32": "^2.3.0",
+    "@scure/bip39": "^2.3.0",
+    "@tetherto/wdk-wallet-evm": "^1.0.0-beta.17",
     "ai": "^7.0.77",
     "dotenv": "^17.4.2",
     "next": "14.2.35",
