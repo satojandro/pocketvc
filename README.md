@@ -84,6 +84,10 @@ sees seed material). Full note: [docs/SECURITY_NOTES.md](docs/SECURITY_NOTES.md)
 
 ## Roadmap
 
+Payouts currently use standard EOA transfers (native gas). Next up: WDK's
+gasless ERC-4337 modules — fees settled in USDT, so family wallets never need
+native tokens at all. Full plan: [docs/ROADMAP.md](docs/ROADMAP.md).
+
 The weekend proves the loop; [docs/ROADMAP.md](docs/ROADMAP.md) is the product:
 one-click WDK wallet setup, MoonPay card→USDT on-ramp, anyone-can-deposit QR
 crowdfunding for kids' projects, gasless first payments, subgraph indexing.
