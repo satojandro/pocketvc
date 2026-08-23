@@ -93,3 +93,21 @@ Full audit trail in data/audit.log shows every proposal + decision. The safety c
 - executePayout() wired into propose_payout: approved payouts now REALLY send USDT treasury→kid and return the tx hash. Tested live: 5 USDT sent, tx 0x6ef1aec3…
 - Gotchas: wdk CLI prompts need delayed stdin writes (pipe closes too early); dotenv path must be explicit for web/ subdirs.
 - Gas dead-end documented: ROADMAP layers + how-it-works FAQ + README note (EOA+gas now → ERC-4337 gasless next).
+
+### ~05:50 — Dress rehearsal PASSED ✅
+Full loop executed end-to-end with fresh state:
+1. Milestone: "Simulator Tycoon: Planning + Money System" — 10 USDT, open (created via parent API after agent proposal flow)
+2. Kid claims completion → BabyShark reviews repo (godotengine/godot-demo-projects), initially can't find the specific file, asks Mateo to clarify — honest verification behavior
+3. Kid points to path → agent satisfied → propose_payout(10 USDT) → policy APPROVE → executePayout fires real wdk send
+4. Kid wallet balance verified: 65 USDT (50 earlier + 5 exec test + 10 rehearsal payout)
+5. Audit trail: clean single APPROVE entry
+
+All track requirements re-verified against the official WDK track page:
+- ✅ @tetherto/wdk-cli as core dependency (scoped package, beta.3)
+- ✅ Public repo + README naming modules
+- ✅ Permalinks to WDK integration files
+- ✅ Demo video: pending (script ready)
+- ✅ Package list + versions in SETUP.md
+- ✅ Clean-clone setup instructions (.env.example)
+- ✅ Network/token details incl. MockUSDT contract address
+- ✅ Not AI slop: every method used is verified against live docs; no dead code; README describes only shipped features

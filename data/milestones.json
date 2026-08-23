@@ -3,7 +3,7 @@
     "id": "ms-1787479366461",
     "kidAddress": "0xC413707F12C1a08bFc8Dc6cD091bF69762B2b255",
     "budget": "10000000n",
-    "paidOut": "0n",
+    "paidOut": "10000000n",
     "description": "Simulator Tycoon: Planning + Money System — A detailed planning document outlining the game mechanics and the core money system.",
     "status": "open"
   }
