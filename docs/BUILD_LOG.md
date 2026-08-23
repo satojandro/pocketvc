@@ -111,3 +111,10 @@ All track requirements re-verified against the official WDK track page:
 - ✅ Clean-clone setup instructions (.env.example)
 - ✅ Network/token details incl. MockUSDT contract address
 - ✅ Not AI slop: every method used is verified against live docs; no dead code; README describes only shipped features
+
+### ~06:15 — Functional escrow: project pool wallet shipped
+- Setup wizard now creates THREE wallets: treasury (parent, client-side keys), kid (client-side keys), and PROJECT POOL (server-held, seed never exposed).
+- Pool = functional escrow: deposits in freely; only exit is policy-approved payout to the kid's pinned address. Nobody in the family holds the key.
+- /api/pool/create returns public address only. Tested live: demo-pool at 0x95381F07…
+- executePayout draws from the pool wallet instead of parent treasury.
+- Production upgrade path: swap custodial pool for escrow smart contract.

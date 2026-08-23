@@ -44,6 +44,8 @@ export default function Setup() {
       await createWallet("treasury");
       setActivity("Generating the kid's keys in your browser…");
       await createWallet("kid");
+      setActivity("Creating the project pool (escrow)…");
+      await createWallet("pool");
       setActivity("");
       setStep(4);
     } catch (e) {
