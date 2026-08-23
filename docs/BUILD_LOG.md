@@ -82,3 +82,7 @@ Full audit trail in data/audit.log shows every proposal + decision. The safety c
 - Wired as `review_repo` tool in the agent.
 - Integration test: told BabyShark "my obby repo is venekovox" → agent called review_repo, noticed NO checkpoint commits ("the last changes were more focused on presentation"), and asked Mateo to explain instead of paying. **The bluff-detection loop works against real GitHub data.**
 - Note for demo: use a repo with real recent commits; kid repos will be small but genuine.
+
+### ~01:30 — Housekeeping
+- Removed Foundry scaffold leftovers (Counter.sol, Counter.s.sol).
+- Demo plan: showcase review_repo against an active public game repo (presented as the kid's repo) — agent analyzes real recent commits and comments on actual code.
